@@ -53,9 +53,17 @@ public class InventoryManagerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        // initialize the name column
         this.nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        // initialize the serial number column
         this.serialNumberColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
+        // initialize the value column
         this.valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+
+        // allow the table columns to be automatically resized
+        this.nameColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.4375));
+        this.serialNumberColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.4375));
+        this.valueColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.1225));
 
         // check if the item list is null
         if (itemList == null) {
