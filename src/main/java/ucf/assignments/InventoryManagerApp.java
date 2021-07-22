@@ -25,7 +25,7 @@
              Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("InventoryManager.fxml")));
              Scene scene = new Scene(root);
 
-             primaryStage.setTitle("To-Do List");
+             primaryStage.setTitle("Inventory Manager");
              primaryStage.setScene(scene);
              primaryStage.show();
          } catch (IOException e) {

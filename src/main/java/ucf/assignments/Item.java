@@ -57,10 +57,12 @@ public class Item {
     }
 
     public BigDecimal getValue() {
+        // return the item's value
         return value;
     }
 
     public void setValue(BigDecimal value) {
+        // set the value instance variable to the value variable
         this.value = value;
     }
 }

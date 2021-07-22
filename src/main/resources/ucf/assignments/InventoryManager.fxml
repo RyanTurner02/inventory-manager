@@ -6,15 +6,19 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <!--
   ~ UCF COP3330 Summer 2021 Assignment 5 Solution
   ~ Copyright 2021 Ryan Turner
   -->
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.InventoryManager">
+<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.InventoryManagerController">
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
@@ -28,21 +32,35 @@
       </MenuBar>
    </top>
    <center>
-      <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="itemTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <columns>
             <TableColumn fx:id="nameColumn" prefWidth="350.0" text="Name" />
             <TableColumn fx:id="serialNumberColumn" prefWidth="350.0" text="Serial Number" />
-            <TableColumn fx:id="valueColumn" prefWidth="100.0" text="Value" />
+            <TableColumn fx:id="valueColumn" prefWidth="98.0" text="Value" />
          </columns>
       </TableView>
    </center>
    <bottom>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItemButtonPressed" text="Add Item" HBox.hgrow="ALWAYS" />
-            <Button fx:id="modifyItemButton" mnemonicParsing="false" onAction="#modifyItemButtonPressed" text="Modify Item" HBox.hgrow="ALWAYS" />
-            <Button fx:id="searchItemButton" mnemonicParsing="false" onAction="#searchItemButtonPressed" text="Search Item" />
-            <Button fx:id="deleteItemButton" mnemonicParsing="false" onAction="#deleteItemButtonPressed" text="Delete Item" HBox.hgrow="ALWAYS" />
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItemButtonPressed" text="Add Item" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="modifyItemButton" mnemonicParsing="false" onAction="#modifyItemButtonPressed" text="Modify Item" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <Button fx:id="deleteItemButton" mnemonicParsing="false" onAction="#deleteItemButtonPressed" text="Delete Item" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                  <TextField promptText="Search Item Name or Serial Number" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+               </children>
+            </GridPane>
          </children>
       </HBox>
    </bottom>

@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 
 public class FileHandler {
 
-    public ObservableList<Item> importFromJSON(TableView<Item> tableView) {
+    public ObservableList<Item> importItemsFromFile(TableView<Item> tableView) {
         // create a list of tasks that will be returned
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
@@ -33,8 +33,10 @@ public class FileHandler {
         // set the title to "Save Task"
         fileChooser.setTitle("Load Task");
 
-        // only allow for .json file to be opened
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        // allow for .json, .tsv, and .html files to be opened
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON File", "*.json"),
+                new FileChooser.ExtensionFilter("TSV File", "*.tsv"),
+                new FileChooser.ExtensionFilter("HTML File", "*.html"));
 
         // show the load dialog and save it to the file object
         File file = fileChooser.showOpenDialog(stage);
@@ -65,11 +67,11 @@ public class FileHandler {
 
             // iterate through the objects in the json file
             for (JsonElement jsonElement : jsonArray) {
-                // get the description from the json array
-                String description = jsonElement.getAsJsonObject().get("description").getAsString();
+                // get the item's name from the json array
+                String description = jsonElement.getAsJsonObject().get("name").getAsString();
 
-                // get the due date from the json array
-                String dueDate = jsonElement.getAsJsonObject().get("dueDate").getAsString();
+                // get the item's serial number from the json array
+                String dueDate = jsonElement.getAsJsonObject().get("serialNumber").getAsString();
 
                 // get the item's value from the json array
                 BigDecimal value = jsonElement.getAsJsonObject().get("value").getAsBigDecimal();
@@ -85,21 +87,23 @@ public class FileHandler {
         return itemList;
     }
 
-    public void exportToJSON(TableView<Item> tableView, ObservableList<Item> itemList) {
+    public void exportItemListToFile(TableView<Item> tableView, ObservableList<Item> itemList) {
         // create a window stage
         Window stage = tableView.getScene().getWindow();
 
         // create a file chooser object
         FileChooser fileChooser = new FileChooser();
 
-        // set the title to "Save Task"
-        fileChooser.setTitle("Save Task");
+        // set the title to "Save Items"
+        fileChooser.setTitle("Save Items");
 
-        // set the initial file name to "tasks"
-        fileChooser.setInitialFileName("tasks");
+        // set the initial file name to "Items"
+        fileChooser.setInitialFileName("Items");
 
-        // only allow for .json file to be saved
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JSON Files", "*.json"));
+        // allow for .json, .tsv, and .html files to be saved
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON File", "*.json"),
+                new FileChooser.ExtensionFilter("TSV File", "*.tsv"),
+                new FileChooser.ExtensionFilter("HTML File", "*.html"));
 
         try {
             // show the save dialog and save it to the file object
