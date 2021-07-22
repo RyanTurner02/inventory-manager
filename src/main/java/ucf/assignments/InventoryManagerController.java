@@ -10,11 +10,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -49,6 +47,9 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     private Button deleteItemButton;
+
+    @FXML
+    private TextField searchTextField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -106,5 +107,30 @@ public class InventoryManagerController implements Initializable {
 
         // remove the item
         itemList.remove(itemToRemove);
+    }
+
+    @FXML
+    public void searchTextFieldTyped(KeyEvent event) {
+        // create an observable list
+        ObservableList<Item> searchedItemList = FXCollections.observableArrayList();
+
+        // store the user input from the text field
+        String userInput = this.searchTextField.textProperty().get();
+
+        // store the item list size
+        int size = itemList.size();
+
+        // iterate through the item list
+        for (int i = 0; i < size; i++) {
+            // check if the user input contains the item's name or serial number
+            if (itemList.get(i).getName().toLowerCase().contains(userInput.toLowerCase()) ||
+                    itemList.get(i).getSerialNumber().toLowerCase().contains(userInput.toLowerCase())) {
+                // add it to the filtered list
+                searchedItemList.add(itemList.get(i));
+            }
+        }
+
+        // display the items
+        this.itemTable.setItems(searchedItemList);
     }
 }

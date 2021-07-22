@@ -58,7 +58,7 @@
                   <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItemButtonPressed" text="Add Item" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Button fx:id="modifyItemButton" mnemonicParsing="false" onAction="#modifyItemButtonPressed" text="Modify Item" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
                   <Button fx:id="deleteItemButton" mnemonicParsing="false" onAction="#deleteItemButtonPressed" text="Delete Item" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                  <TextField promptText="Search Item Name or Serial Number" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
+                  <TextField fx:id="searchTextField" onKeyTyped="#searchTextFieldTyped" promptText="Search Item Name or Serial Number" GridPane.columnSpan="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
                </children>
             </GridPane>
          </children>
