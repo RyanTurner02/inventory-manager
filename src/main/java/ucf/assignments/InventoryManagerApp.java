@@ -14,7 +14,7 @@
  import java.io.IOException;
  import java.util.Objects;
 
- public class TodoListApp extends Application {
+ public class InventoryManagerApp extends Application {
      public static void main(String[] args) {
          launch(args);
      }
@@ -22,7 +22,7 @@
      @Override
      public void start(Stage primaryStage) {
          try {
-             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Task.fxml")));
+             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("InventoryManager.fxml")));
              Scene scene = new Scene(root);
 
              primaryStage.setTitle("To-Do List");

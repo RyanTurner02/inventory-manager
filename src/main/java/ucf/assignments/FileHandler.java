@@ -16,12 +16,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.math.BigDecimal;
 
 public class FileHandler {
 
-    public ObservableList<Task> importFromJSON(TableView<Task> tableView) {
+    public ObservableList<Item> importFromJSON(TableView<Item> tableView) {
         // create a list of tasks that will be returned
-        ObservableList<Task> taskList = FXCollections.observableArrayList();
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         // create a window stage
         Window stage = tableView.getScene().getWindow();
@@ -41,19 +42,19 @@ public class FileHandler {
         // check if the user did not open a file
         if (file == null) {
             // exit the method and return the task list
-            return taskList;
+            return itemList;
         }
 
         // get the tasks from the json file and store it to the task list
-        taskList = getTasksFromJSONFile(file);
+        itemList = getTasksFromJSONFile(file);
 
         // return the task list
-        return taskList;
+        return itemList;
     }
 
-    public ObservableList<Task> getTasksFromJSONFile(File file) {
+    public ObservableList<Item> getTasksFromJSONFile(File file) {
         // create a task list that will store the tasks from a json file
-        ObservableList<Task> taskList = FXCollections.observableArrayList();
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         try {
             // load the json file
@@ -70,21 +71,21 @@ public class FileHandler {
                 // get the due date from the json array
                 String dueDate = jsonElement.getAsJsonObject().get("dueDate").getAsString();
 
-                // get the finished flag from the json array
-                boolean isFinished = jsonElement.getAsJsonObject().get("isFinished").getAsBoolean();
+                // get the item's value from the json array
+                BigDecimal value = jsonElement.getAsJsonObject().get("value").getAsBigDecimal();
 
                 // create a new task object and add it to the task list
-                taskList.add(new Task(description, dueDate, isFinished));
+                itemList.add(new Item(description, dueDate, value));
             }
         } catch (FileNotFoundException e) {
             // print the stack trace when we have an exception
             e.printStackTrace();
         }
         // return the task list
-        return taskList;
+        return itemList;
     }
 
-    public void exportToJSON(TableView<Task> tableView, ObservableList<Task> taskList) {
+    public void exportToJSON(TableView<Item> tableView, ObservableList<Item> itemList) {
         // create a window stage
         Window stage = tableView.getScene().getWindow();
 
@@ -117,7 +118,7 @@ public class FileHandler {
             Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
             // get the tasks and convert it into a json string
-            String jsonString = gson.toJson(taskList);
+            String jsonString = gson.toJson(itemList);
 
             // write the json string into a file
             fileWriter.write(jsonString);
@@ -130,12 +131,12 @@ public class FileHandler {
         }
     }
 
-    public String getJSONString(ObservableList<Task> taskList) {
+    public String getJSONString(ObservableList<Item> itemList) {
         // create a gson object and make it format for a file
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
         // get the tasks and convert it into a json string
-        String jsonString = gson.toJson(taskList);
+        String jsonString = gson.toJson(itemList);
 
         // return the json string
         return jsonString;

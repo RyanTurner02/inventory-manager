@@ -71,27 +71,27 @@ Two or More Tasks:
 
 ### Adding an item:
 
-* In the task menu, press on the "Add Item" button.
+* In the item menu, press on the "Add Item" button.
 * Fill in a description between 1-256 characters.
 * Choose a date.
-* Choose either "Yes" or "No" for marking the task as either complete or incomplete.
-* Press either the "Add" button to create the task or "Cancel" button to not create the task.
+* Choose either "Yes" or "No" for marking the item as either complete or incomplete.
+* Press either the "Add" button to create the item or "Cancel" button to not create the item.
 
 ### Modifying an item:
 
-* Select an already existing item in the task menu.
+* Select an already existing item in the item menu.
 * Press the "Modify Item" button.
 * You will have the option to modify all the values.
     * **Note:** The description still requires 1-256 characters.
-* Press either the "Modify" button to modify the task or "Cancel" button to not modify the task.
+* Press either the "Modify" button to modify the item or "Cancel" button to not modify the item.
 
 ### Deleting items:
 
 * Deleting a Single Item:
-    * In the task menu, select an already existing item.
+    * In the item menu, select an already existing item.
     * Press the "Delete Item" button to delete the item.
 * Deleting All Items:
-    * In the task menu, press the "Delete All Items" button to delete all the tasks.
+    * In the item menu, press the "Delete All Items" button to delete all the tasks.
 
 ***
 
