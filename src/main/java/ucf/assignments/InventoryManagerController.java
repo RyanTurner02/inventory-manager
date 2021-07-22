@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class InventoryManagerController implements Initializable {
-    private static ObservableList<Item> itemList;
+    private ObservableList<Item> itemList;
 
     @FXML
     private MenuItem importMenuItem;
@@ -115,6 +115,9 @@ public class InventoryManagerController implements Initializable {
 
         // remove the item
         itemList.remove(itemToRemove);
+
+        // display the items
+        this.itemTable.setItems(itemList);
     }
 
     @FXML

@@ -38,17 +38,38 @@ public class FileHandler {
                 new FileChooser.ExtensionFilter("TSV File", "*.tsv"),
                 new FileChooser.ExtensionFilter("HTML File", "*.html"));
 
-        // show the load dialog and save it to the file object
-        File file = fileChooser.showOpenDialog(stage);
+        try {
+            // show the load dialog and save it to the file object
+            File file = fileChooser.showOpenDialog(stage);
 
-        // check if the user did not open a file
-        if (file == null) {
-            // exit the method and return the task list
-            return itemList;
+            // check if the user did not open a file
+            if (file == null) {
+                // exit the method and return the task list
+                return itemList;
+            }
+
+            // get the file path
+            String filePath = file.getCanonicalPath();
+
+            // if the file extension is .json
+            if (filePath.endsWith(".json")) {
+                // get the tasks from the json file and store it to the task list
+                itemList = getTasksFromJSONFile(file);
+            }
+
+            // else if the file extension is .tsv
+            else if (filePath.endsWith(".tsv")) {
+                System.out.println("TSV");
+            }
+
+            // else if the file extension is .html
+            else if (filePath.endsWith(".html")) {
+                System.out.println("HTML");
+            }
+        } catch (Exception e) {
+            // print the stack trace when we have an exception
+            e.printStackTrace();
         }
-
-        // get the tasks from the json file and store it to the task list
-        itemList = getTasksFromJSONFile(file);
 
         // return the task list
         return itemList;
@@ -118,14 +139,27 @@ public class FileHandler {
             // create a file writer with the file location
             FileWriter fileWriter = new FileWriter(file);
 
-            // create a gson object and make it format for a file
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
+            // get the file path
+            String filePath = file.getCanonicalPath();
 
-            // get the tasks and convert it into a json string
-            String jsonString = gson.toJson(itemList);
+            // if the file extension is .json
+            if (filePath.endsWith(".json")) {
+                // get the tasks and convert it into a json string
+                String jsonString = getJSONString(itemList);
 
-            // write the json string into a file
-            fileWriter.write(jsonString);
+                // write the json string into a file
+                fileWriter.write(jsonString);
+            }
+
+            // else if the file extension is .tsv
+            else if (filePath.endsWith(".tsv")) {
+                System.out.println("TSV");
+            }
+
+            // else if the file extension is .html
+            else if (filePath.endsWith(".html")) {
+                System.out.println("HTML");
+            }
 
             // close the file writer
             fileWriter.close();
@@ -139,10 +173,19 @@ public class FileHandler {
         // create a gson object and make it format for a file
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setPrettyPrinting().create();
 
-        // get the tasks and convert it into a json string
-        String jsonString = gson.toJson(itemList);
+        // return the items as a json string
+        return gson.toJson(itemList);
+    }
 
-        // return the json string
-        return jsonString;
+    public String getHTML() {
+        String ret = "";
+
+        return ret;
+    }
+
+    public String getHTMLTable() {
+        String table = "";
+
+        return table;
     }
 }

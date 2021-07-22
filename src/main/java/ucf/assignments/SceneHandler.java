@@ -13,9 +13,13 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class SceneHandler {
+    private Map<String, Scene> sceneMap = new HashMap<>();
+
     public void switchToScene(ActionEvent event, String fxmlFile) {
         try {
             // load an fxml file
