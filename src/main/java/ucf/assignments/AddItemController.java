@@ -17,26 +17,17 @@ import java.math.BigDecimal;
 
 public class AddItemController {
     private ObservableList<Item> itemList;
+    private SceneManager sceneManager;
 
-    @FXML
-    private Button addItemButton;
+    @FXML private Button addItemButton;
+    @FXML private Button cancelButton;
+    @FXML private TextField nameTextField;
+    @FXML private TextField serialNumberTextField;
+    @FXML private TextField valueTextField;
 
-    @FXML
-    private Button cancelButton;
-
-    @FXML
-    private TextField nameTextField;
-
-    @FXML
-    private TextField serialNumberTextField;
-
-    @FXML
-    private TextField valueTextField;
-
-    public AddItemController() {}
-
-    public AddItemController(ObservableList<Item> itemList) {
+    public AddItemController(ObservableList<Item> itemList, SceneManager sceneManager) {
         this.itemList = itemList;
+        this.sceneManager = sceneManager;
     }
 
     public void addItemButtonPressed(ActionEvent event) {
@@ -64,6 +55,10 @@ public class AddItemController {
         Item item = new Item(name, serialNumber, value);
 
         // pass the item to the inventory manager controller
+        itemList.add(item);
+
+        // clear the text fields
+        clearTextFields();
 
         // get the stage
         Stage stage = (Stage) this.addItemButton.getScene().getWindow();
@@ -73,11 +68,20 @@ public class AddItemController {
     }
 
     public void cancelButtonPressed(ActionEvent event) {
+        // clear the text fields
+        clearTextFields();
+
         // get the stage
         Stage stage = (Stage) this.cancelButton.getScene().getWindow();
 
         // close the stage
         stage.close();
+    }
+
+    private void clearTextFields() {
+        this.nameTextField.setText("");
+        this.serialNumberTextField.setText("");
+        this.valueTextField.setText("");
     }
 
     public void nameTextFieldTyped(KeyEvent keyEvent) {

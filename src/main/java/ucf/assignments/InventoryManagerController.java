@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.math.BigDecimal;
 import java.net.URL;
@@ -20,36 +21,23 @@ import java.util.ResourceBundle;
 
 public class InventoryManagerController implements Initializable {
     private ObservableList<Item> itemList;
+    private SceneManager sceneManager;
 
-    @FXML
-    private MenuItem importMenuItem;
+    @FXML private MenuItem importMenuItem;
+    @FXML private MenuItem exportMenuItem;
+    @FXML private TableView<Item> itemTable;
+    @FXML private TableColumn<Item, String> nameColumn;
+    @FXML private TableColumn<Item, String> serialNumberColumn;
+    @FXML private TableColumn<Item, BigDecimal> valueColumn;
+    @FXML private Button addItemButton;
+    @FXML private Button modifyItemButton;
+    @FXML private Button deleteItemButton;
+    @FXML private TextField searchTextField;
 
-    @FXML
-    private MenuItem exportMenuItem;
-
-    @FXML
-    private TableView<Item> itemTable;
-
-    @FXML
-    private TableColumn<Item, String> nameColumn;
-
-    @FXML
-    private TableColumn<Item, String> serialNumberColumn;
-
-    @FXML
-    private TableColumn<Item, BigDecimal> valueColumn;
-
-    @FXML
-    private Button addItemButton;
-
-    @FXML
-    private Button modifyItemButton;
-
-    @FXML
-    private Button deleteItemButton;
-
-    @FXML
-    private TextField searchTextField;
+    public InventoryManagerController(ObservableList<Item> itemList, SceneManager sceneManager) {
+        this.itemList = itemList;
+        this.sceneManager = sceneManager;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -65,21 +53,8 @@ public class InventoryManagerController implements Initializable {
         this.serialNumberColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.4375));
         this.valueColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.1225));
 
-        // check if the item list is null
-        if (itemList == null) {
-            // initialize the item list
-            initializeItemList();
-        }
-
-        itemList.add(new Item("Hello World!", "123456789A", BigDecimal.TEN));
-
         // display the items
         this.itemTable.setItems(itemList);
-    }
-
-    public void initializeItemList() {
-        // initialize the item list
-        itemList = FXCollections.observableArrayList();
     }
 
     @FXML
@@ -102,15 +77,21 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void addItemButtonPressed(ActionEvent event) {
-        // create a scene handler object
-        SceneHandler sceneHandler = new SceneHandler();
-
-        // switch to the "AddItem" scene with the window title "Item Creator"
-        sceneHandler.switchToScene("AddItem.fxml", "Item Creator");
+        Stage stage = new Stage();
+        stage.setTitle("Item Creator");
+        stage.setScene(this.sceneManager.getScene("AddItem"));
+        stage.show();
     }
 
     @FXML
     public void modifyItemButtonPressed(ActionEvent event) {
+        // check if the user selected an object
+        if (this.itemTable.getSelectionModel().selectedItemProperty().get() != null) {
+            Stage stage = new Stage();
+            stage.setTitle("Item Modifier");
+            stage.setScene(this.sceneManager.getScene("ModifyItem"));
+            stage.show();
+        }
     }
 
     @FXML
@@ -146,7 +127,7 @@ public class InventoryManagerController implements Initializable {
             }
         }
 
-        // display the items
+        // display the filtered items
         this.itemTable.setItems(searchedItemList);
     }
 }

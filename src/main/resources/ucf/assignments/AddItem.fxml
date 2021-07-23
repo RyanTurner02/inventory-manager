@@ -15,7 +15,7 @@
   ~ Copyright 2021 Ryan Turner
   -->
 
-<BorderPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.AddItemController">
+<BorderPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
     <bottom>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
             <children>
