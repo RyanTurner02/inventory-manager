@@ -34,22 +34,42 @@ public class AddItemController {
         // get the inputted name
         String name = this.nameTextField.getText();
 
+        // get the length of the name
+        int nameLength = name.length();
+
+        // check if the name length is less than 2 or greater than 256
+        if(nameLength < 2 || nameLength > 256) {
+            // exit the function
+            return;
+        }
+
         // get the inputted serial number
         String serialNumber = this.serialNumberTextField.getText();
 
-        // get the inputted value
-        BigDecimal value = new BigDecimal(this.valueTextField.getText());
+        // check if the length of the serial number is equal to 10
+        if(serialNumber.length() != 10) {
+            // exit the function
+            return;
+        }
 
         // iterate through the item list
         for (Item item : itemList) {
             // check if the inputted serial number is equal to the item's serial number from the item list
             if (serialNumber.equalsIgnoreCase(item.getSerialNumber())) {
                 // display an error window
+                Stage errorStage = new Stage();
+                errorStage.setTitle("Error");
+                errorStage.setResizable(false);
+                errorStage.setScene(this.sceneManager.getScene("Error"));
+                errorStage.show();
 
                 // exit the function
                 return;
             }
         }
+
+        // get the inputted value
+        BigDecimal value = new BigDecimal(this.valueTextField.getText());
 
         // create an item object
         Item item = new Item(name, serialNumber, value);

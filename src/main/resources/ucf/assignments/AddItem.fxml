@@ -73,9 +73,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <TextField fx:id="nameTextField" onKeyTyped="#nameTextFieldTyped" GridPane.columnSpan="3" />
-                        <TextField fx:id="serialNumberTextField" onKeyTyped="#serialNumberTextFieldTyped" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-                        <TextField fx:id="valueTextField" onKeyTyped="#valueTextFieldTyped" GridPane.columnSpan="3" GridPane.rowIndex="2" />
+                        <TextField fx:id="nameTextField" onKeyTyped="#nameTextFieldTyped" promptText="2-256 Characters Only" GridPane.columnSpan="3" />
+                        <TextField fx:id="serialNumberTextField" onKeyTyped="#serialNumberTextFieldTyped" promptText="XXXXXXXXXX" GridPane.columnSpan="3" GridPane.rowIndex="1" />
+                        <TextField fx:id="valueTextField" onKeyTyped="#valueTextFieldTyped" promptText="XX.XX" GridPane.columnSpan="3" GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </children>

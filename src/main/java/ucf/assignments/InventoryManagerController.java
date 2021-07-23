@@ -79,6 +79,7 @@ public class InventoryManagerController implements Initializable {
     public void addItemButtonPressed(ActionEvent event) {
         Stage stage = new Stage();
         stage.setTitle("Item Creator");
+        stage.setResizable(false);
         stage.setScene(this.sceneManager.getScene("AddItem"));
         stage.show();
     }
@@ -89,6 +90,7 @@ public class InventoryManagerController implements Initializable {
         if (this.itemTable.getSelectionModel().selectedItemProperty().get() != null) {
             Stage stage = new Stage();
             stage.setTitle("Item Modifier");
+            stage.setResizable(false);
             stage.setScene(this.sceneManager.getScene("ModifyItem"));
             stage.show();
         }

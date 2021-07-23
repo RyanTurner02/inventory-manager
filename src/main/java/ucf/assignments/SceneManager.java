@@ -16,7 +16,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SceneManager {
-    private Map<String, Scene> sceneMap = new HashMap<>();
+    private Map<String, Scene> sceneMap;
+
+    public SceneManager() {
+        this.sceneMap = new HashMap<>();
+    }
 
     void load() {
         ObservableList<Item> itemList = FXCollections.observableArrayList();
@@ -24,15 +28,19 @@ public class SceneManager {
         InventoryManagerController inventoryManagerController = new InventoryManagerController(itemList, this);
         AddItemController addItemController = new AddItemController(itemList, this);
         ModifyItemController modifyItemController = new ModifyItemController(itemList, this);
+        ErrorController errorController = new ErrorController(itemList, this);
 
         addScene(inventoryManagerController, "InventoryManager.fxml", "InventoryManager");
         addScene(addItemController, "AddItem.fxml", "AddItem");
+        addScene(modifyItemController, "ModifyItem.fxml", "ModifyItem");
+        addScene(errorController, "Error.fxml", "Error");
     }
 
     private <Controller> void addScene(Controller controller, String fxmlFile, String sceneName) {
         Parent root;
+        FXMLLoader loader;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFile));
+        loader = new FXMLLoader(getClass().getResource(fxmlFile));
         loader.setController(controller);
 
         try {
