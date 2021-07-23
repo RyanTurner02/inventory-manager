@@ -5,33 +5,25 @@
 
 package ucf.assignments;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Objects;
 
 public class SceneHandler {
-    private Map<String, Scene> sceneMap = new HashMap<>();
-
-    public void switchToScene(ActionEvent event, String fxmlFile) {
+    public void switchToScene(String fxmlFile, String windowTitle) {
         try {
-            // load an fxml file
             Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(fxmlFile)));
-
-            // switch scene
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setTitle(windowTitle);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         } catch (IOException e) {
-            // print the error
             e.printStackTrace();
         }
     }

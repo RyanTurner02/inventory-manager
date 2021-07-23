@@ -102,6 +102,11 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void addItemButtonPressed(ActionEvent event) {
+        // create a scene handler object
+        SceneHandler sceneHandler = new SceneHandler();
+
+        // switch to the "AddItem" scene with the window title "Item Creator"
+        sceneHandler.switchToScene("AddItem.fxml", "Item Creator");
     }
 
     @FXML
