@@ -42,6 +42,14 @@ public class AddItemController {
 
         // create an item object
         Item item = new Item(name, serialNumber, value);
+
+        // pass the item to the inventory manager controller
+
+        // get the stage
+        Stage stage = (Stage) this.addItemButton.getScene().getWindow();
+
+        // close the stage
+        stage.close();
     }
 
     public void cancelButtonPressed(ActionEvent event) {

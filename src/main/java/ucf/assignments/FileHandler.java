@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 public class FileHandler {
 
     public ObservableList<Item> importItemsFromFile(TableView<Item> tableView) {
-        // create a list of tasks that will be returned
+        // create a list of items that will be returned
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         // create a window stage
@@ -30,8 +30,8 @@ public class FileHandler {
         // create a file chooser object
         FileChooser fileChooser = new FileChooser();
 
-        // set the title to "Save Task"
-        fileChooser.setTitle("Load Task");
+        // set the title to "Load Items"
+        fileChooser.setTitle("Load Items");
 
         // allow for .json, .tsv, and .html files to be opened
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON File", "*.json"),
@@ -44,7 +44,7 @@ public class FileHandler {
 
             // check if the user did not open a file
             if (file == null) {
-                // exit the method and return the task list
+                // exit the method and return the item list
                 return itemList;
             }
 
@@ -53,30 +53,32 @@ public class FileHandler {
 
             // if the file extension is .json
             if (filePath.endsWith(".json")) {
-                // get the tasks from the json file and store it to the task list
-                itemList = getTasksFromJSONFile(file);
+                // get the items from the json file and store it to the item list
+                itemList = getItemsFromJSONFile(file);
             }
 
             // else if the file extension is .tsv
             else if (filePath.endsWith(".tsv")) {
-                System.out.println("TSV");
+                // get the items from the tsv file and store it to the item list
+                itemList = getItemsFromTSVFile(file);
             }
 
             // else if the file extension is .html
             else if (filePath.endsWith(".html")) {
-                System.out.println("HTML");
+                // get the items from the html file and store it to the item list
+                itemList = getItemsFromHTMLFile(file);
             }
         } catch (Exception e) {
             // print the stack trace when we have an exception
             e.printStackTrace();
         }
 
-        // return the task list
+        // return the item list
         return itemList;
     }
 
-    public ObservableList<Item> getTasksFromJSONFile(File file) {
-        // create a task list that will store the tasks from a json file
+    public ObservableList<Item> getItemsFromJSONFile(File file) {
+        // create a item list that will store the items from a json file
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         try {
@@ -97,14 +99,24 @@ public class FileHandler {
                 // get the item's value from the json array
                 BigDecimal value = jsonElement.getAsJsonObject().get("value").getAsBigDecimal();
 
-                // create a new task object and add it to the task list
+                // create a new item object and add it to the item list
                 itemList.add(new Item(description, dueDate, value));
             }
         } catch (FileNotFoundException e) {
             // print the stack trace when we have an exception
             e.printStackTrace();
         }
-        // return the task list
+        // return the item list
+        return itemList;
+    }
+
+    public ObservableList<Item> getItemsFromTSVFile(File file) {
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
+        return itemList;
+    }
+
+    public ObservableList<Item> getItemsFromHTMLFile(File file) {
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
         return itemList;
     }
 
@@ -144,7 +156,7 @@ public class FileHandler {
 
             // if the file extension is .json
             if (filePath.endsWith(".json")) {
-                // get the tasks and convert it into a json string
+                // get the items and convert it into a json string
                 String jsonString = getJSONString(itemList);
 
                 // write the json string into a file
@@ -177,15 +189,21 @@ public class FileHandler {
         return gson.toJson(itemList);
     }
 
-    public String getHTML() {
+    public String getTSVString(ObservableList<Item> itemList) {
         String ret = "";
 
         return ret;
     }
 
-    public String getHTMLTable() {
-        String table = "";
+    public String getHTML(ObservableList<Item> itemList) {
+        String ret = "";
 
-        return table;
+        return ret;
+    }
+
+    public String getHTMLTable(ObservableList<Item> itemList) {
+        String ret = "";
+
+        return ret;
     }
 }
