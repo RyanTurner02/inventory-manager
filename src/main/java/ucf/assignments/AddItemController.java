@@ -5,6 +5,7 @@
 
 package ucf.assignments;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -15,6 +16,8 @@ import javafx.stage.Stage;
 import java.math.BigDecimal;
 
 public class AddItemController {
+    private ObservableList<Item> itemList;
+
     @FXML
     private Button addItemButton;
 
@@ -30,6 +33,12 @@ public class AddItemController {
     @FXML
     private TextField valueTextField;
 
+    public AddItemController() {}
+
+    public AddItemController(ObservableList<Item> itemList) {
+        this.itemList = itemList;
+    }
+
     public void addItemButtonPressed(ActionEvent event) {
         // get the inputted name
         String name = this.nameTextField.getText();
@@ -38,7 +47,18 @@ public class AddItemController {
         String serialNumber = this.serialNumberTextField.getText();
 
         // get the inputted value
-        BigDecimal value = BigDecimal.valueOf(Long.parseLong(this.valueTextField.getText()));
+        BigDecimal value = new BigDecimal(this.valueTextField.getText());
+
+        // iterate through the item list
+        for (Item item : itemList) {
+            // check if the inputted serial number is equal to the item's serial number from the item list
+            if (serialNumber.equalsIgnoreCase(item.getSerialNumber())) {
+                // display an error window
+
+                // exit the function
+                return;
+            }
+        }
 
         // create an item object
         Item item = new Item(name, serialNumber, value);
