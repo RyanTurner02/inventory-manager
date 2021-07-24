@@ -170,7 +170,11 @@ public class FileHandler {
 
             // else if the file extension is .html
             else if (filePath.endsWith(".html")) {
-                System.out.println("HTML");
+                // get the items and convert it into an html string
+                String htmlString = getHTMLString(itemList);
+
+                // write the html string into a file
+                fileWriter.write(htmlString);
             }
 
             // close the file writer
@@ -195,15 +199,38 @@ public class FileHandler {
         return ret;
     }
 
-    public String getHTML(ObservableList<Item> itemList) {
-        String ret = "";
+    public String getHTMLString(ObservableList<Item> itemList) {
+        String htmlSkeleton = "<!DOCTYPE html>\n" +
+                "<html>\n" +
+                "\t<head>\n" +
+                "\t\t<title>Inventory Manager</title>\n" +
+                "\t</head>\n" +
+                "\t<body>\n" +
+                getHTMLTable(itemList) + "\n" +
+                "\t</body>\n" +
+                "</html>\n";
 
-        return ret;
+        return htmlSkeleton;
     }
 
     public String getHTMLTable(ObservableList<Item> itemList) {
-        String ret = "";
+        String htmlTable = "<table align=\"center\" border=\"1\">\n" +
+                "<tr>\n" +
+                "<th>Name</th>\n" +
+                "<th>Serial Number</th>\n" +
+                "<th>Value</th>\n" +
+                "</tr>\n";
 
-        return ret;
+        for (Item item : itemList) {
+            htmlTable += "<tr>\n";
+            htmlTable += "<td>" + item.getName() + "</td>\n";
+            htmlTable += "<td>" + item.getSerialNumber() + "</td>\n";
+            htmlTable += "<td> $" + item.getValue() + "</td>\n";
+            htmlTable += "</tr>\n";
+        }
+
+        htmlTable += "</table>\n";
+
+        return htmlTable;
     }
 }

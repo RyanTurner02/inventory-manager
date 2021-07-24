@@ -23,12 +23,16 @@ public class AddItemController {
 
     @FXML
     private Button addItemButton;
+
     @FXML
     private Button cancelButton;
+
     @FXML
     private TextField nameTextField;
+
     @FXML
     private TextField serialNumberTextField;
+
     @FXML
     private TextField valueTextField;
 
