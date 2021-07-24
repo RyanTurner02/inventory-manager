@@ -33,9 +33,9 @@ public class FileHandler {
         // set the title to "Load Items"
         fileChooser.setTitle("Load Items");
 
-        // allow for .json, .tsv, and .html files to be opened
+        // allow for .json, .txt, and .html files to be opened
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON File", "*.json"),
-                new FileChooser.ExtensionFilter("TSV File", "*.tsv"),
+                new FileChooser.ExtensionFilter("Text File", "*.txt"),
                 new FileChooser.ExtensionFilter("HTML File", "*.html"));
 
         try {
@@ -57,8 +57,8 @@ public class FileHandler {
                 itemList = getItemsFromJSONFile(file);
             }
 
-            // else if the file extension is .tsv
-            else if (filePath.endsWith(".tsv")) {
+            // else if the file extension is .txt
+            else if (filePath.endsWith(".txt")) {
                 // get the items from the tsv file and store it to the item list
                 itemList = getItemsFromTSVFile(file);
             }
@@ -133,9 +133,9 @@ public class FileHandler {
         // set the initial file name to "Items"
         fileChooser.setInitialFileName("Items");
 
-        // allow for .json, .tsv, and .html files to be saved
+        // allow for .json, .txt, and .html files to be saved
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON File", "*.json"),
-                new FileChooser.ExtensionFilter("TSV File", "*.tsv"),
+                new FileChooser.ExtensionFilter("Text File", "*.txt"),
                 new FileChooser.ExtensionFilter("HTML File", "*.html"));
 
         try {
@@ -163,9 +163,13 @@ public class FileHandler {
                 fileWriter.write(jsonString);
             }
 
-            // else if the file extension is .tsv
-            else if (filePath.endsWith(".tsv")) {
-                System.out.println("TSV");
+            // else if the file extension is .txt
+            else if (filePath.endsWith(".txt")) {
+                // get the items and convert it into a tsv string
+                String tsvString = getTSVString(itemList);
+
+                // write the tsv string into a file
+                fileWriter.write(tsvString);
             }
 
             // else if the file extension is .html
@@ -194,13 +198,17 @@ public class FileHandler {
     }
 
     public String getTSVString(ObservableList<Item> itemList) {
-        String ret = "";
+        String tsvString = "Name\tSerial Number\tValue\n";
 
-        return ret;
+        for(Item item : itemList) {
+            tsvString += (item.getName() + "\t" + item.getSerialNumber() + "\t$" + item.getMonetaryValue() + "\n");
+        }
+
+        return tsvString;
     }
 
     public String getHTMLString(ObservableList<Item> itemList) {
-        String htmlSkeleton = "<!DOCTYPE html>\n" +
+        return "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "\t<head>\n" +
                 "\t\t<title>Inventory Manager</title>\n" +
@@ -209,8 +217,6 @@ public class FileHandler {
                 getHTMLTable(itemList) + "\n" +
                 "\t</body>\n" +
                 "</html>\n";
-
-        return htmlSkeleton;
     }
 
     public String getHTMLTable(ObservableList<Item> itemList) {
