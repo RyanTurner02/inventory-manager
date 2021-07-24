@@ -41,15 +41,13 @@ public class AddItemController {
         this.sceneManager = sceneManager;
     }
 
+    @FXML
     public void addItemButtonPressed(ActionEvent event) {
         // get the inputted name
         String name = this.nameTextField.getText();
 
-        // get the length of the name
-        int nameLength = name.length();
-
-        // check if the name length is less than 2
-        if (nameLength < 2) {
+        // check if the name length is invalid
+        if (hasInvalidNameLength(name)) {
             // exit the function
             return;
         }
@@ -57,26 +55,19 @@ public class AddItemController {
         // get the inputted serial number
         String serialNumber = this.serialNumberTextField.getText();
 
-        // check if the length of the serial number is not equal to 10
-        if (serialNumber.length() != 10) {
+        // check if the length of the serial number is invalid
+        if (hasInvalidSerialNumberLength(serialNumber)) {
             // exit the function
             return;
         }
 
-        // iterate through the item list
-        for (Item item : itemList) {
-            // check if the inputted serial number is equal to the item's serial number from the item list
-            if (serialNumber.equalsIgnoreCase(item.getSerialNumber())) {
-                // display an error window
-                Stage errorStage = new Stage();
-                errorStage.setTitle("Error");
-                errorStage.setResizable(false);
-                errorStage.setScene(this.sceneManager.getScene("Error"));
-                errorStage.show();
+        // check if the user entered a duplicate serial number
+        if (hasDuplicateSerialNumber(serialNumber)) {
+            // display an error window
+            displayErrorWindow();
 
-                // exit the function
-                return;
-            }
+            // exit the function
+            return;
         }
 
         // get the inputted value
@@ -98,6 +89,39 @@ public class AddItemController {
         stage.close();
     }
 
+    public boolean hasInvalidNameLength(String name) {
+        // return true if the name length is less than 2 or greater than 256 characters
+        return name.length() < 2 || name.length() > 256;
+    }
+
+    public boolean hasInvalidSerialNumberLength(String serialNumber) {
+        // return true if the serial number length is not equal to 10
+        return serialNumber.length() != 10;
+    }
+
+    public boolean hasDuplicateSerialNumber(String serialNumber) {
+        // iterate through the item list
+        for (Item item : this.itemList) {
+            // check if there is a duplicate serial number
+            if (serialNumber.equalsIgnoreCase(item.getSerialNumber())) {
+                // return true if a duplicate serial number has been found
+                return true;
+            }
+        }
+        // return false if there is no duplicate serial number
+        return false;
+    }
+
+    private void displayErrorWindow() {
+        // display an error window
+        Stage errorStage = new Stage();
+        errorStage.setTitle("Error");
+        errorStage.setResizable(false);
+        errorStage.setScene(this.sceneManager.getScene("Error"));
+        errorStage.show();
+    }
+
+    @FXML
     public void cancelButtonPressed(ActionEvent event) {
         // clear the text fields
         clearTextFields();
@@ -110,14 +134,20 @@ public class AddItemController {
     }
 
     private void clearTextFields() {
+        // clear the name text field
         this.nameTextField.clear();
+
+        // clear the serial number text field
         this.serialNumberTextField.clear();
+
+        // clear the monetary value text field
         this.valueTextField.clear();
     }
 
+    @FXML
     public void nameTextFieldPressed(KeyEvent keyEvent) {
         this.nameTextField.setTextFormatter(new TextFormatter<>(c -> {
-            if (c.getControlNewText().length() <= 256) {
+            if (lessThanMaxNameLength(c.getControlNewText())) {
                 return c;
             } else {
                 return null;
@@ -125,9 +155,15 @@ public class AddItemController {
         }));
     }
 
+    private boolean lessThanMaxNameLength(String name) {
+        // return true if the name length is less than or equal to 256 characters
+        return name.length() <= 256;
+    }
+
+    @FXML
     public void serialNumberTextFieldPressed(KeyEvent keyEvent) {
         this.serialNumberTextField.setTextFormatter(new TextFormatter<>(c -> {
-            if (c.getControlNewText().length() <= 10 && c.getControlNewText().matches("^|^[a-zA-Z0-9]+$")) {
+            if (lessThanMaxSerialNumberLength(c.getControlNewText()) && hasAlphaNumericCharacters(c.getControlNewText())) {
                 return c;
             } else {
                 return null;
@@ -135,13 +171,29 @@ public class AddItemController {
         }));
     }
 
+    private boolean lessThanMaxSerialNumberLength(String serialNumber) {
+        // return true if the serial number length is less than or equal to 10 characters
+        return serialNumber.length() <= 10;
+    }
+
+    public boolean hasAlphaNumericCharacters(String serialNumber) {
+        // return true if there are only alphanumeric characters
+        return serialNumber.matches("^|^[a-zA-Z0-9]+$");
+    }
+
+    @FXML
     public void valueTextFieldPressed(KeyEvent keyEvent) {
         this.valueTextField.setTextFormatter(new TextFormatter<>(c -> {
-            if (c.getControlNewText().matches("^|^\\d+\\.?\\d{0,2}$")) {
+            if (hasNumbersAndTwoDecimals(c.getControlNewText())) {
                 return c;
             } else {
                 return null;
             }
         }));
+    }
+
+    public boolean hasNumbersAndTwoDecimals(String monetaryValue) {
+        // return true if there are only numbers or numbers with a maximum of 2 decimals
+        return monetaryValue.matches("^|^\\d+\\.?\\d{0,2}$");
     }
 }

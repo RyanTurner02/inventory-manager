@@ -83,7 +83,8 @@
                                            promptText="2-256 Characters Only" GridPane.columnSpan="3"/>
                                 <TextField fx:id="serialNumberTextField" onKeyPressed="#serialNumberTextFieldPressed"
                                            promptText="XXXXXXXXXX" GridPane.columnSpan="3" GridPane.rowIndex="1"/>
-                                <TextField fx:id="valueTextField" onKeyPressed="#valueTextFieldPressed" promptText="XX.XX"
+                                <TextField fx:id="valueTextField" onKeyPressed="#valueTextFieldPressed"
+                                           promptText="XX.XX"
                                            GridPane.columnSpan="3" GridPane.rowIndex="2"/>
                             </children>
                         </GridPane>

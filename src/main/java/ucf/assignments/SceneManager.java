@@ -45,7 +45,7 @@ public class SceneManager {
         try {
             root = loader.load();
             this.sceneMap.put(sceneName, new Scene(root));
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

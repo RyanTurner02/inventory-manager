@@ -9,8 +9,10 @@
   -->
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duplicate Serial Number Found!" BorderPane.alignment="CENTER" />
-   </center>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0"
+            prefWidth="200.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Duplicate Serial Number Found!"
+              BorderPane.alignment="CENTER"/>
+    </center>
 </BorderPane>

@@ -23,16 +23,35 @@ public class InventoryManagerController implements Initializable {
     private ObservableList<Item> itemList;
     private SceneManager sceneManager;
 
-    @FXML private MenuItem importMenuItem;
-    @FXML private MenuItem exportMenuItem;
-    @FXML private TableView<Item> itemTable;
-    @FXML private TableColumn<Item, String> nameColumn;
-    @FXML private TableColumn<Item, String> serialNumberColumn;
-    @FXML private TableColumn<Item, String> valueColumn;
-    @FXML private Button addItemButton;
-    @FXML private Button modifyItemButton;
-    @FXML private Button deleteItemButton;
-    @FXML private TextField searchTextField;
+    @FXML
+    private MenuItem importMenuItem;
+
+    @FXML
+    private MenuItem exportMenuItem;
+
+    @FXML
+    private TableView<Item> itemTable;
+
+    @FXML
+    private TableColumn<Item, String> nameColumn;
+
+    @FXML
+    private TableColumn<Item, String> serialNumberColumn;
+
+    @FXML
+    private TableColumn<Item, String> valueColumn;
+
+    @FXML
+    private Button addItemButton;
+
+    @FXML
+    private Button modifyItemButton;
+
+    @FXML
+    private Button deleteItemButton;
+
+    @FXML
+    private TextField searchTextField;
 
     public InventoryManagerController(ObservableList<Item> itemList, SceneManager sceneManager) {
         this.itemList = itemList;
