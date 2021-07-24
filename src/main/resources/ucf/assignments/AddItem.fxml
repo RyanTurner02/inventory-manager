@@ -15,72 +15,81 @@
   ~ Copyright 2021 Ryan Turner
   -->
 
-<BorderPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1">
     <bottom>
         <HBox alignment="CENTER" prefHeight="50.0" prefWidth="200.0">
             <children>
                 <GridPane>
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                     </rowConstraints>
                     <children>
-                        <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItemButtonPressed" text="Add Item" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonPressed" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+                        <Button fx:id="addItemButton" mnemonicParsing="false" onAction="#addItemButtonPressed"
+                                text="Add Item" GridPane.halignment="CENTER" GridPane.valignment="CENTER"/>
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#cancelButtonPressed"
+                                text="Cancel" GridPane.columnIndex="1" GridPane.halignment="CENTER"
+                                GridPane.valignment="CENTER"/>
                     </children>
                 </GridPane>
             </children>
         </HBox>
     </bottom>
-   <center>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <GridPane alignment="CENTER">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " GridPane.halignment="RIGHT" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Serial Number: " GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Value: " GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
-               <children>
-                  <GridPane>
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <TextField fx:id="nameTextField" onKeyTyped="#nameTextFieldTyped" promptText="2-256 Characters Only" GridPane.columnSpan="3" />
-                        <TextField fx:id="serialNumberTextField" onKeyTyped="#serialNumberTextFieldTyped" promptText="XXXXXXXXXX" GridPane.columnSpan="3" GridPane.rowIndex="1" />
-                        <TextField fx:id="valueTextField" onKeyTyped="#valueTextFieldTyped" promptText="XX.XX" GridPane.columnSpan="3" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </center>
+    <center>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <children>
+                <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
+                    <children>
+                        <GridPane alignment="CENTER">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name: " GridPane.halignment="RIGHT"/>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Serial Number: "
+                                      GridPane.halignment="RIGHT" GridPane.rowIndex="1"/>
+                                <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Value: " GridPane.halignment="RIGHT"
+                                      GridPane.rowIndex="2"/>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                    <children>
+                        <GridPane>
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                            </rowConstraints>
+                            <children>
+                                <TextField fx:id="nameTextField" onKeyPressed="#nameTextFieldPressed"
+                                           promptText="2-256 Characters Only" GridPane.columnSpan="3"/>
+                                <TextField fx:id="serialNumberTextField" onKeyPressed="#serialNumberTextFieldPressed"
+                                           promptText="XXXXXXXXXX" GridPane.columnSpan="3" GridPane.rowIndex="1"/>
+                                <TextField fx:id="valueTextField" onKeyPressed="#valueTextFieldPressed" promptText="XX.XX"
+                                           GridPane.columnSpan="3" GridPane.rowIndex="2"/>
+                            </children>
+                        </GridPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </center>
 </BorderPane>

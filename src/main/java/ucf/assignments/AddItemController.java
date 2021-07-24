@@ -10,20 +10,27 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class AddItemController {
     private ObservableList<Item> itemList;
     private SceneManager sceneManager;
 
-    @FXML private Button addItemButton;
-    @FXML private Button cancelButton;
-    @FXML private TextField nameTextField;
-    @FXML private TextField serialNumberTextField;
-    @FXML private TextField valueTextField;
+    @FXML
+    private Button addItemButton;
+    @FXML
+    private Button cancelButton;
+    @FXML
+    private TextField nameTextField;
+    @FXML
+    private TextField serialNumberTextField;
+    @FXML
+    private TextField valueTextField;
 
     public AddItemController(ObservableList<Item> itemList, SceneManager sceneManager) {
         this.itemList = itemList;
@@ -37,8 +44,8 @@ public class AddItemController {
         // get the length of the name
         int nameLength = name.length();
 
-        // check if the name length is less than 2 or greater than 256
-        if(nameLength < 2 || nameLength > 256) {
+        // check if the name length is less than 2
+        if (nameLength < 2) {
             // exit the function
             return;
         }
@@ -46,8 +53,8 @@ public class AddItemController {
         // get the inputted serial number
         String serialNumber = this.serialNumberTextField.getText();
 
-        // check if the length of the serial number is equal to 10
-        if(serialNumber.length() != 10) {
+        // check if the length of the serial number is not equal to 10
+        if (serialNumber.length() != 10) {
             // exit the function
             return;
         }
@@ -69,7 +76,7 @@ public class AddItemController {
         }
 
         // get the inputted value
-        BigDecimal value = new BigDecimal(this.valueTextField.getText());
+        BigDecimal value = new BigDecimal(this.valueTextField.getText()).setScale(2, RoundingMode.DOWN);
 
         // create an item object
         Item item = new Item(name, serialNumber, value);
@@ -99,34 +106,35 @@ public class AddItemController {
     }
 
     private void clearTextFields() {
-        this.nameTextField.setText("");
-        this.serialNumberTextField.setText("");
-        this.valueTextField.setText("");
     }
 
-    public void nameTextFieldTyped(KeyEvent keyEvent) {
-        // check if the name text field is greater than 256 characters
-        if (this.nameTextField.getLength() > 256) {
-            // prevent the user from entering any more characters
-            this.nameTextField.setText(this.nameTextField.getText(0, 256));
-
-            // set the caret to the 256th position
-            this.serialNumberTextField.positionCaret(256);
-        }
+    public void nameTextFieldPressed(KeyEvent keyEvent) {
+        this.nameTextField.setTextFormatter(new TextFormatter<>(c -> {
+            if (c.getControlNewText().length() <= 256) {
+                return c;
+            } else {
+                return null;
+            }
+        }));
     }
 
-    public void serialNumberTextFieldTyped(KeyEvent keyEvent) {
-        // check if the serial number text field is greater than 10 characters
-        if (this.serialNumberTextField.getLength() > 10) {
-            // prevent the user from entering any more characters
-            this.serialNumberTextField.setText(this.serialNumberTextField.getText(0, 10));
-
-            // set the caret to the 10th position
-            this.serialNumberTextField.positionCaret(10);
-        }
+    public void serialNumberTextFieldPressed(KeyEvent keyEvent) {
+        this.serialNumberTextField.setTextFormatter(new TextFormatter<>(c -> {
+            if (c.getControlNewText().length() <= 10 && c.getControlNewText().matches("^|^[a-zA-Z0-9]+$")) {
+                return c;
+            } else {
+                return null;
+            }
+        }));
     }
 
-    public void valueTextFieldTyped(KeyEvent keyEvent) {
-
+    public void valueTextFieldPressed(KeyEvent keyEvent) {
+        this.valueTextField.setTextFormatter(new TextFormatter<>(c -> {
+            if (c.getControlNewText().matches("^|^\\d+\\.?\\d{0,2}$")) {
+                return c;
+            } else {
+                return null;
+            }
+        }));
     }
 }

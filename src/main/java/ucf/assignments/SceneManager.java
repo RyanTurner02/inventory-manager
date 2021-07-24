@@ -28,12 +28,11 @@ public class SceneManager {
         InventoryManagerController inventoryManagerController = new InventoryManagerController(itemList, this);
         AddItemController addItemController = new AddItemController(itemList, this);
         ModifyItemController modifyItemController = new ModifyItemController(itemList, this);
-        ErrorController errorController = new ErrorController(itemList, this);
 
         addScene(inventoryManagerController, "InventoryManager.fxml", "InventoryManager");
         addScene(addItemController, "AddItem.fxml", "AddItem");
         addScene(modifyItemController, "ModifyItem.fxml", "ModifyItem");
-        addScene(errorController, "Error.fxml", "Error");
+        addScene(null, "Error.fxml", "Error");
     }
 
     private <Controller> void addScene(Controller controller, String fxmlFile, String sceneName) {
