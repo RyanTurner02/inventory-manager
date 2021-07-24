@@ -106,6 +106,9 @@ public class AddItemController {
     }
 
     private void clearTextFields() {
+        this.nameTextField.clear();
+        this.serialNumberTextField.clear();
+        this.valueTextField.clear();
     }
 
     public void nameTextFieldPressed(KeyEvent keyEvent) {
