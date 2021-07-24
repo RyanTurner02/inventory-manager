@@ -5,6 +5,7 @@
 
 package ucf.assignments;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,7 +16,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
-import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,7 +28,7 @@ public class InventoryManagerController implements Initializable {
     @FXML private TableView<Item> itemTable;
     @FXML private TableColumn<Item, String> nameColumn;
     @FXML private TableColumn<Item, String> serialNumberColumn;
-    @FXML private TableColumn<Item, BigDecimal> valueColumn;
+    @FXML private TableColumn<Item, String> monetaryValueColumn;
     @FXML private Button addItemButton;
     @FXML private Button modifyItemButton;
     @FXML private Button deleteItemButton;
@@ -46,12 +46,12 @@ public class InventoryManagerController implements Initializable {
         // initialize the serial number column
         this.serialNumberColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
         // initialize the value column
-        this.valueColumn.setCellValueFactory(new PropertyValueFactory<>("value"));
+        this.monetaryValueColumn.setCellValueFactory(c -> new SimpleStringProperty("$" + c.getValue().getMonetaryValue()));
 
         // allow the table columns to be automatically resized
         this.nameColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.4375));
         this.serialNumberColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.4375));
-        this.valueColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.1225));
+        this.monetaryValueColumn.prefWidthProperty().bind(itemTable.widthProperty().multiply(0.1225));
 
         // display the items
         this.itemTable.setItems(itemList);

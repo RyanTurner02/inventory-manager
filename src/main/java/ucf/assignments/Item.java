@@ -18,14 +18,14 @@ public class Item {
     private String serialNumber;
 
     @Expose
-    private BigDecimal value;
+    private BigDecimal monetaryValue;
 
     public Item() {
         // initialize the instance variables strings to blank and 0 for the big decimal value
         this("", "", BigDecimal.ZERO);
     }
 
-    public Item(String name, String serialNumber, BigDecimal value) {
+    public Item(String name, String serialNumber, BigDecimal monetaryValue) {
         // initialize the description instance variable to the description variable
         this.name = name;
 
@@ -33,7 +33,7 @@ public class Item {
         this.serialNumber = serialNumber;
 
         // initialize the value instance variable to the value variable
-        this.value = value;
+        this.monetaryValue = monetaryValue;
     }
 
     public String getName() {
@@ -56,13 +56,13 @@ public class Item {
         this.serialNumber = serialNumber;
     }
 
-    public BigDecimal getValue() {
+    public BigDecimal getMonetaryValue() {
         // return the item's value
-        return value;
+        return monetaryValue;
     }
 
-    public void setValue(BigDecimal value) {
+    public void setMonetaryValue(BigDecimal monetaryValue) {
         // set the value instance variable to the value variable
-        this.value = value;
+        this.monetaryValue = monetaryValue;
     }
 }

@@ -225,7 +225,7 @@ public class FileHandler {
             htmlTable += "<tr>\n";
             htmlTable += "<td>" + item.getName() + "</td>\n";
             htmlTable += "<td>" + item.getSerialNumber() + "</td>\n";
-            htmlTable += "<td> $" + item.getValue() + "</td>\n";
+            htmlTable += "<td> $" + item.getMonetaryValue() + "</td>\n";
             htmlTable += "</tr>\n";
         }
 
