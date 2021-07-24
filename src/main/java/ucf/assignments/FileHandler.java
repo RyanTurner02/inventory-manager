@@ -17,6 +17,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Scanner;
 
 public class FileHandler {
 
@@ -78,7 +80,7 @@ public class FileHandler {
     }
 
     public ObservableList<Item> getItemsFromJSONFile(File file) {
-        // create a item list that will store the items from a json file
+        // create a item list that will store the items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         try {
@@ -96,14 +98,14 @@ public class FileHandler {
                 // get the item's serial number from the json array
                 String dueDate = jsonElement.getAsJsonObject().get("serialNumber").getAsString();
 
-                // get the item's value from the json array
-                BigDecimal value = jsonElement.getAsJsonObject().get("value").getAsBigDecimal();
+                // get the item's monetary value from the json array
+                BigDecimal value = jsonElement.getAsJsonObject().get("monetaryValue").getAsBigDecimal();
 
                 // create a new item object and add it to the item list
                 itemList.add(new Item(description, dueDate, value));
             }
         } catch (FileNotFoundException e) {
-            // print the stack trace when we have an exception
+            // print the stack trace
             e.printStackTrace();
         }
         // return the item list
@@ -111,7 +113,33 @@ public class FileHandler {
     }
 
     public ObservableList<Item> getItemsFromTSVFile(File file) {
+        // create an item list that will store the items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
+
+        try {
+            // create a scanner object
+            Scanner reader = new Scanner(file);
+
+            // check if the first line is the header
+            if (reader.nextLine().contains("Name\tSerial Number\tValue".toLowerCase())) {
+                // skip to the next line
+                reader.nextLine();
+            }
+
+            // iterate through the file
+            while (reader.hasNextLine()) {
+                // store the current item values in an array
+                String[] currentItemValues = reader.nextLine().split("\t");
+
+                // add the current item values to the item list
+                itemList.add(new Item(currentItemValues[0], currentItemValues[1], new BigDecimal(currentItemValues[2].replace("$", "")).setScale(2, RoundingMode.DOWN)));
+            }
+        } catch (FileNotFoundException e) {
+            // print the stack trace
+            e.printStackTrace();
+        }
+
+        // return the item list
         return itemList;
     }
 
@@ -200,7 +228,7 @@ public class FileHandler {
     public String getTSVString(ObservableList<Item> itemList) {
         String tsvString = "Name\tSerial Number\tValue\n";
 
-        for(Item item : itemList) {
+        for (Item item : itemList) {
             tsvString += (item.getName() + "\t" + item.getSerialNumber() + "\t$" + item.getMonetaryValue() + "\n");
         }
 
