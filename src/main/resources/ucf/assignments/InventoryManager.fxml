@@ -37,9 +37,9 @@
     <center>
         <TableView fx:id="itemTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <columns>
-                <TableColumn fx:id="nameColumn" prefWidth="350.0" text="Name"/>
-                <TableColumn fx:id="serialNumberColumn" prefWidth="350.0" text="Serial Number"/>
-                <TableColumn fx:id="valueColumn" prefWidth="98.0" text="Value"/>
+                <TableColumn fx:id="nameColumn" prefWidth="350.0" resizable="false" text="Name"/>
+                <TableColumn fx:id="serialNumberColumn" prefWidth="350.0" resizable="false" text="Serial Number"/>
+                <TableColumn fx:id="valueColumn" prefWidth="98.0" resizable="false" text="Value"/>
             </columns>
         </TableView>
     </center>

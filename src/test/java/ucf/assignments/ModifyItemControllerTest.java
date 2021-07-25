@@ -33,18 +33,18 @@ class ModifyItemControllerTest {
         boolean flag = true;
 
         int size = actualItemList.size();
-        for(int i = 0; i < size; i++) {
-            if(!actualItemList.get(i).getName().equalsIgnoreCase(expectedItemList.get(i).getName())) {
+        for (int i = 0; i < size; i++) {
+            if (!actualItemList.get(i).getName().equalsIgnoreCase(expectedItemList.get(i).getName())) {
                 flag = false;
                 break;
             }
 
-            if(!actualItemList.get(i).getSerialNumber().equalsIgnoreCase(expectedItemList.get(i).getSerialNumber())) {
+            if (!actualItemList.get(i).getSerialNumber().equalsIgnoreCase(expectedItemList.get(i).getSerialNumber())) {
                 flag = false;
                 break;
             }
 
-            if(!actualItemList.get(i).getMonetaryValue().equals(expectedItemList.get(i).getMonetaryValue())) {
+            if (!actualItemList.get(i).getMonetaryValue().equals(expectedItemList.get(i).getMonetaryValue())) {
                 flag = false;
                 break;
             }
@@ -71,18 +71,18 @@ class ModifyItemControllerTest {
         boolean flag = true;
 
         int size = actualItemList.size();
-        for(int i = 0; i < size; i++) {
-            if(!actualItemList.get(i).getName().equalsIgnoreCase(expectedItemList.get(i).getName())) {
+        for (int i = 0; i < size; i++) {
+            if (!actualItemList.get(i).getName().equalsIgnoreCase(expectedItemList.get(i).getName())) {
                 flag = false;
                 break;
             }
 
-            if(!actualItemList.get(i).getSerialNumber().equalsIgnoreCase(expectedItemList.get(i).getSerialNumber())) {
+            if (!actualItemList.get(i).getSerialNumber().equalsIgnoreCase(expectedItemList.get(i).getSerialNumber())) {
                 flag = false;
                 break;
             }
 
-            if(!actualItemList.get(i).getMonetaryValue().equals(expectedItemList.get(i).getMonetaryValue())) {
+            if (!actualItemList.get(i).getMonetaryValue().equals(expectedItemList.get(i).getMonetaryValue())) {
                 flag = false;
                 break;
             }
@@ -122,18 +122,18 @@ class ModifyItemControllerTest {
         boolean flag = true;
 
         int size = actualItemList.size();
-        for(int i = 0; i < size; i++) {
-            if(!actualItemList.get(i).getName().equalsIgnoreCase(expectedItemList.get(i).getName())) {
+        for (int i = 0; i < size; i++) {
+            if (!actualItemList.get(i).getName().equalsIgnoreCase(expectedItemList.get(i).getName())) {
                 flag = false;
                 break;
             }
 
-            if(!actualItemList.get(i).getSerialNumber().equalsIgnoreCase(expectedItemList.get(i).getSerialNumber())) {
+            if (!actualItemList.get(i).getSerialNumber().equalsIgnoreCase(expectedItemList.get(i).getSerialNumber())) {
                 flag = false;
                 break;
             }
 
-            if(!actualItemList.get(i).getMonetaryValue().equals(expectedItemList.get(i).getMonetaryValue())) {
+            if (!actualItemList.get(i).getMonetaryValue().equals(expectedItemList.get(i).getMonetaryValue())) {
                 flag = false;
                 break;
             }

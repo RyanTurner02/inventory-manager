@@ -60,7 +60,7 @@ public class ModifyItemController implements Initializable {
         String serialNumber = this.serialNumberTextField.getText();
         String valueString = this.valueTextField.getText();
 
-        if(valueString.isEmpty()) {
+        if (valueString.isEmpty()) {
             return;
         }
 
