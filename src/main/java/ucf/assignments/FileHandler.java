@@ -11,11 +11,12 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Scanner;
@@ -144,7 +145,57 @@ public class FileHandler {
     }
 
     public ObservableList<Item> getItemsFromHTMLFile(File file) {
+        // create an item list that will store the items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
+
+        try {
+            // create a scanner object
+            Scanner reader = new Scanner(file);
+
+            // create a string that stores the file text
+            String fileString = "";
+
+            // iterate through the file
+            while (reader.hasNextLine()) {
+                fileString += String.format("%s\n", reader.nextLine());
+            }
+
+            // parse the html into a document
+            Document document = Jsoup.parse(fileString);
+
+            // store the table
+            Elements tables = document.select("table");
+
+            // store the table rows
+            Elements tableRows = tables.get(0).select("tr");
+
+            // iterate through the table rows
+            for (Element tableRow : tableRows) {
+                if (tableRow.select("td").size() == 3) {
+                    // store the name
+                    String name = tableRow.select("td").get(0).text();
+
+                    // store the serial number
+                    String serialNumber = tableRow.select("td").get(1).text();
+
+                    // store the monetary value as a string
+                    String monetaryValueString = tableRow.select("td").get(2).text();
+
+                    // remove the '$' from the string
+                    monetaryValueString = monetaryValueString.replace("$", "");
+
+                    // store the monetary value as a big decimal with 2 decimals
+                    BigDecimal monetaryValue = new BigDecimal(monetaryValueString).setScale(2, RoundingMode.DOWN);
+
+                    // add the name, serial number, and monetary value to the item list
+                    itemList.add(new Item(name, serialNumber, monetaryValue));
+                }
+            }
+        } catch (FileNotFoundException e) {
+            // print the stack trace
+            e.printStackTrace();
+        }
+        // return the item list
         return itemList;
     }
 
@@ -248,22 +299,22 @@ public class FileHandler {
     }
 
     public String getHTMLTable(ObservableList<Item> itemList) {
-        String htmlTable = "<table align=\"center\" border=\"1\">\n" +
-                "<tr>\n" +
-                "<th>Name</th>\n" +
-                "<th>Serial Number</th>\n" +
-                "<th>Value</th>\n" +
-                "</tr>\n";
+        String htmlTable = "\t\t<table align=\"center\" border=\"1\">\n" +
+                "\t\t<tr>\n" +
+                "\t\t\t<th>Name</th>\n" +
+                "\t\t\t<th>Serial Number</th>\n" +
+                "\t\t\t<th>Value</th>\n" +
+                "\t\t</tr>\n";
 
         for (Item item : itemList) {
-            htmlTable += "<tr>\n";
-            htmlTable += "<td>" + item.getName() + "</td>\n";
-            htmlTable += "<td>" + item.getSerialNumber() + "</td>\n";
-            htmlTable += "<td> $" + item.getMonetaryValue() + "</td>\n";
-            htmlTable += "</tr>\n";
+            htmlTable += "\t\t<tr>\n";
+            htmlTable += "\t\t\t<td>" + item.getName() + "</td>\n";
+            htmlTable += "\t\t\t<td>" + item.getSerialNumber() + "</td>\n";
+            htmlTable += "\t\t\t<td> $" + item.getMonetaryValue() + "</td>\n";
+            htmlTable += "\t\t</tr>\n";
         }
 
-        htmlTable += "</table>\n";
+        htmlTable += "\t\t</table>";
 
         return htmlTable;
     }
