@@ -161,7 +161,7 @@ public class AddItemController {
     @FXML
     public void valueTextFieldPressed(KeyEvent keyEvent) {
         this.valueTextField.setTextFormatter(new TextFormatter<>(c -> {
-            if (hasUSDFormat(c.getControlNewText())) {
+            if (hasUSDFormat(c.getControlNewText()) && !c.getControlNewText().equals(".")) {
                 return c;
             } else {
                 return null;
@@ -170,6 +170,6 @@ public class AddItemController {
     }
 
     public boolean hasUSDFormat(String monetaryValue) {
-        return monetaryValue.matches("^|^\\d+\\.?\\d{0,2}$");
+        return monetaryValue.matches("^|^\\d{0,10}$|^\\d{0,10}+\\.\\d{0,2}$");
     }
 }
