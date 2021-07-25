@@ -134,13 +134,19 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void searchTextFieldTyped(KeyEvent event) {
-        // create an observable list
-        ObservableList<Item> searchedItemList = FXCollections.observableArrayList();
-
         // store the user input from the text field
         String userInput = this.searchTextField.textProperty().get();
 
-        // store the item list size
+        // get the filtered items
+        ObservableList<Item> searchedItemList = searchItemsByNameAndSerialNumber(this.itemList, userInput);
+
+        // display the filtered items
+        this.itemTable.setItems(searchedItemList);
+    }
+
+    public ObservableList<Item> searchItemsByNameAndSerialNumber(ObservableList<Item> itemList, String userInput) {
+        ObservableList<Item> searchedItemList = FXCollections.observableArrayList();
+
         int size = itemList.size();
 
         // iterate through the item list
@@ -152,8 +158,6 @@ public class InventoryManagerController implements Initializable {
                 searchedItemList.add(itemList.get(i));
             }
         }
-
-        // display the filtered items
-        this.itemTable.setItems(searchedItemList);
+        return searchedItemList;
     }
 }

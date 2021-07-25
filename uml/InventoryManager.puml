@@ -38,6 +38,7 @@ class InventoryManagerController {
     + modifyItemButtonPressed(event)
     + deleteItemButtonPressed(event)
     + searchTextFieldTyped(event)
+    + searchItemsByNameAndSerialNumber(itemList, userInput)
 }
 
 class AddItemController {

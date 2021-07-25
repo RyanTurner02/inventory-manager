@@ -11,7 +11,8 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class InventoryManagerControllerTest {
     @Test
@@ -45,12 +46,90 @@ class InventoryManagerControllerTest {
     }
 
     @Test
-    public void item_can_be_searched_by_name() {
+    public void item_can_be_searched_by_name_1() {
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
+        itemList.add(new Item("Name", "HelloWorld", new BigDecimal(100)));
+        itemList.add(new Item("Meteor", "1234567890", new BigDecimal(500)));
 
+        InventoryManagerController inventoryManagerController = new InventoryManagerController(itemList, null);
+
+        String userInput = "met";
+        ObservableList<Item> filteredList = inventoryManagerController.searchItemsByNameAndSerialNumber(itemList, userInput);
+
+        boolean flag = false;
+
+        for (Item item : filteredList) {
+            if (item.getName().toLowerCase().contains(userInput.toLowerCase())) {
+                flag = true;
+                break;
+            }
+        }
+        assertTrue(flag);
     }
 
     @Test
-    public void item_can_be_searched_by_serial_number() {
+    public void item_can_be_searched_by_name_2() {
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
+        itemList.add(new Item("Name", "HelloWorld", new BigDecimal(100)));
+        itemList.add(new Item("Meteor", "1234567890", new BigDecimal(500)));
 
+        InventoryManagerController inventoryManagerController = new InventoryManagerController(itemList, null);
+
+        String userInput = "nam";
+        ObservableList<Item> filteredList = inventoryManagerController.searchItemsByNameAndSerialNumber(itemList, userInput);
+
+        boolean flag = false;
+
+        for (Item item : filteredList) {
+            if (item.getName().toLowerCase().contains(userInput.toLowerCase())) {
+                flag = true;
+                break;
+            }
+        }
+        assertTrue(flag);
+    }
+
+    @Test
+    public void item_can_be_searched_by_serial_number_1() {
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
+        itemList.add(new Item("Name", "HelloWorld", new BigDecimal(100)));
+        itemList.add(new Item("Meteor", "1234567890", new BigDecimal(500)));
+
+        InventoryManagerController inventoryManagerController = new InventoryManagerController(itemList, null);
+
+        String userInput = "hellow";
+        ObservableList<Item> filteredList = inventoryManagerController.searchItemsByNameAndSerialNumber(itemList, userInput);
+
+        boolean flag = false;
+
+        for (Item item : filteredList) {
+            if (item.getSerialNumber().toLowerCase().contains(userInput.toLowerCase())) {
+                flag = true;
+                break;
+            }
+        }
+        assertTrue(flag);
+    }
+
+    @Test
+    public void item_can_be_searched_by_serial_number_2() {
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
+        itemList.add(new Item("Name", "HelloWorld", new BigDecimal(100)));
+        itemList.add(new Item("Meteor", "1234567890", new BigDecimal(500)));
+
+        InventoryManagerController inventoryManagerController = new InventoryManagerController(itemList, null);
+
+        String userInput = "567";
+        ObservableList<Item> filteredList = inventoryManagerController.searchItemsByNameAndSerialNumber(itemList, userInput);
+
+        boolean flag = false;
+
+        for (Item item : filteredList) {
+            if (item.getSerialNumber().toLowerCase().contains(userInput.toLowerCase())) {
+                flag = true;
+                break;
+            }
+        }
+        assertTrue(flag);
     }
 }
