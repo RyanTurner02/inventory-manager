@@ -145,11 +145,11 @@ public class InventoryManagerController implements Initializable {
     public ObservableList<Item> searchItemsByNameAndSerialNumber(ObservableList<Item> itemList, String userInput) {
         ObservableList<Item> searchedItemList = FXCollections.observableArrayList();
 
+        // iterate through the item list
         int size = itemList.size();
 
-        // iterate through the item list
         for (int i = 0; i < size; i++) {
-            // check if the user input contains the item's name or serial number
+            // check if the the item's name or serial number contains the user input
             if (itemList.get(i).getName().toLowerCase().contains(userInput.toLowerCase()) ||
                     itemList.get(i).getSerialNumber().toLowerCase().contains(userInput.toLowerCase())) {
                 // add it to the filtered list

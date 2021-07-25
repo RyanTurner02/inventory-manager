@@ -56,6 +56,7 @@ public class ModifyItemController implements Initializable {
 
     @FXML
     public void modifyItemButtonPressed(ActionEvent event) {
+        // store the values from the text fields
         String name = this.nameTextField.getText();
         String serialNumber = this.serialNumberTextField.getText();
         String valueString = this.valueTextField.getText();
@@ -138,6 +139,7 @@ public class ModifyItemController implements Initializable {
     }
 
     private void displayErrorWindow() {
+        // display an error window
         Stage errorStage = new Stage();
         errorStage.setTitle("Error");
         errorStage.setResizable(false);
@@ -146,12 +148,14 @@ public class ModifyItemController implements Initializable {
     }
 
     private void closeWindow() {
+        // get the stage and close it
         Stage stage = (Stage) this.modifyItemButton.getScene().getWindow();
         stage.close();
     }
 
     @FXML
     public void cancelButtonPressed(ActionEvent event) {
+        // get the stage and close it
         Stage stage = (Stage) this.cancelButton.getScene().getWindow();
         stage.close();
     }
@@ -159,6 +163,7 @@ public class ModifyItemController implements Initializable {
     @FXML
     public void nameTextFieldPressed(KeyEvent keyEvent) {
         this.nameTextField.setTextFormatter(new TextFormatter<>(c -> {
+            // prevent the user from entering more than 256 characters
             if (lessThanMaxNameLength(c.getControlNewText())) {
                 return c;
             } else {
@@ -174,6 +179,8 @@ public class ModifyItemController implements Initializable {
     @FXML
     public void serialNumberTextFieldPressed(KeyEvent keyEvent) {
         this.serialNumberTextField.setTextFormatter(new TextFormatter<>(c -> {
+            // prevent the user from entering more than 10 characters
+            // allow the user to enter only alphanumeric characters
             if (lessThanMaxSerialNumberLength(c.getControlNewText()) && hasAlphaNumericCharacters(c.getControlNewText())) {
                 return c;
             } else {
@@ -193,6 +200,8 @@ public class ModifyItemController implements Initializable {
     @FXML
     public void valueTextFieldPressed(KeyEvent keyEvent) {
         this.valueTextField.setTextFormatter(new TextFormatter<>(c -> {
+            // allow the user to enter a monetary value in a USD format
+            // prevent the user from entering a '.' as the only character in the text field
             if (hasUSDFormat(c.getControlNewText()) && !c.getControlNewText().equals(".")) {
                 return c;
             } else {

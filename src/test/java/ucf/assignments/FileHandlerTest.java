@@ -18,11 +18,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class FileHandlerTest {
     @Test
     public void items_can_be_saved_into_json_file_1() {
+        // create an item list and add an item
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         itemList.add(new Item("Name", "XXXXXXXXXX", new BigDecimal(10.50)));
 
         FileHandler fileHandler = new FileHandler();
 
+        // get the json string
         String actual = fileHandler.getJSONString(itemList);
         String expected = "[\n" +
                 "  {\n" +
@@ -32,17 +34,20 @@ class FileHandlerTest {
                 "  }\n" +
                 "]";
 
+        // assert that the actual json string matches the expected json string
         assertEquals(expected, actual);
     }
 
     @Test
     public void items_can_be_saved_into_json_file_2() {
+        // create an item list and add two items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         itemList.add(new Item("Name", "abjk289Akf", new BigDecimal(10.50)));
         itemList.add(new Item("Another Name", "HelloWorld", new BigDecimal(1050.25)));
 
         FileHandler fileHandler = new FileHandler();
 
+        // get the json string
         String actual = fileHandler.getJSONString(itemList);
         String expected = "[\n" +
                 "  {\n" +
@@ -57,46 +62,55 @@ class FileHandlerTest {
                 "  }\n" +
                 "]";
 
+        // assert that the actual json string matches the expected json string
         assertEquals(expected, actual);
     }
 
     @Test
     public void items_can_be_saved_into_tsv_text_file_1() {
+        // create an item list and add an item
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         itemList.add(new Item("Name", "XXXXXXXXXX", new BigDecimal(10.50)));
 
         FileHandler fileHandler = new FileHandler();
 
+        // get the tsv string
         String actual = fileHandler.getTSVString(itemList);
         String expected = "Name\tSerial Number\tValue\n" +
                 "Name\tXXXXXXXXXX\t$10.5\n";
 
+        // assert that the actual tsv string matches the expected tsv string
         assertEquals(expected, actual);
     }
 
     @Test
     public void items_can_be_saved_into_tsv_text_file_2() {
+        // create an item list and add an item
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         itemList.add(new Item("Name", "abjk289Akf", new BigDecimal(10.50)));
         itemList.add(new Item("Another Name", "HelloWorld", new BigDecimal(1050.25)));
 
         FileHandler fileHandler = new FileHandler();
 
+        // get the tsv string
         String actual = fileHandler.getTSVString(itemList);
         String expected = "Name\tSerial Number\tValue\n" +
                 "Name\tabjk289Akf\t$10.5\n" +
                 "Another Name\tHelloWorld\t$1050.25\n";
 
+        // assert that the actual tsv string matches the expected tsv string
         assertEquals(expected, actual);
     }
 
     @Test
     public void items_can_be_saved_into_html_file_1() {
+        // create an item list and add an item
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         itemList.add(new Item("Name", "XXXXXXXXXX", new BigDecimal(10.50)));
 
         FileHandler fileHandler = new FileHandler();
 
+        // get the html string
         String actual = fileHandler.getHTMLString(itemList);
         String expected = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -119,17 +133,20 @@ class FileHandlerTest {
                 "\t</body>\n" +
                 "</html>\n";
 
+        // assert that the actual html string matches the expected html string
         assertEquals(expected, actual);
     }
 
     @Test
     public void items_can_be_saved_into_html_file_2() {
+        // create an item list and add an item
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         itemList.add(new Item("Name", "abjk289Akf", new BigDecimal(10.50)));
         itemList.add(new Item("Another Name", "HelloWorld", new BigDecimal(1050.25)));
 
         FileHandler fileHandler = new FileHandler();
 
+        // get the html string
         String actual = fileHandler.getHTMLString(itemList);
         String expected = "<!DOCTYPE html>\n" +
                 "<html>\n" +
@@ -157,6 +174,7 @@ class FileHandlerTest {
                 "\t</body>\n" +
                 "</html>\n";
 
+        // assert that the actual html string matches the expected html string
         assertEquals(expected, actual);
     }
 
@@ -168,11 +186,13 @@ class FileHandlerTest {
         String filePath = "src/test/resources/ucf/assignments/Items.json";
         File file = new File(filePath);
 
+        // store the file contents into an item list
         FileHandler fileHandler = new FileHandler();
-        ObservableList<Item> actualItemList = fileHandler.getItemsFromHTMLFile(file);
+        ObservableList<Item> actualItemList = fileHandler.getItemsFromJSONFile(file);
 
         boolean flag = true;
 
+        // check that all the contents in the actual list match the expected list
         int size = actualItemList.size();
         for (int i = 0; i < size; i++) {
             if (!actualItemList.get(i).getName().equals(expectedItemList.get(i).getName())) {
@@ -201,11 +221,13 @@ class FileHandlerTest {
         String filePath = "src/test/resources/ucf/assignments/Items.txt";
         File file = new File(filePath);
 
+        // store the file contents into an item list
         FileHandler fileHandler = new FileHandler();
-        ObservableList<Item> actualItemList = fileHandler.getItemsFromHTMLFile(file);
+        ObservableList<Item> actualItemList = fileHandler.getItemsFromTSVTextFile(file);
 
         boolean flag = true;
 
+        // check that all the contents in the actual list match the expected list
         int size = actualItemList.size();
         for (int i = 0; i < size; i++) {
             if (!actualItemList.get(i).getName().equals(expectedItemList.get(i).getName())) {
@@ -234,11 +256,13 @@ class FileHandlerTest {
         String filePath = "src/test/resources/ucf/assignments/Items.html";
         File file = new File(filePath);
 
+        // store the file contents into an item list
         FileHandler fileHandler = new FileHandler();
         ObservableList<Item> actualItemList = fileHandler.getItemsFromHTMLFile(file);
 
         boolean flag = true;
 
+        // check that all the contents in the actual list match the expected list
         int size = actualItemList.size();
         for (int i = 0; i < size; i++) {
             if (!actualItemList.get(i).getName().equals(expectedItemList.get(i).getName())) {

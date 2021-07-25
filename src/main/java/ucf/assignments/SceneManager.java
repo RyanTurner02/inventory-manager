@@ -37,7 +37,7 @@ public class SceneManager {
         Parent root;
         FXMLLoader loader;
 
-        // load the scene and set the controller
+        // initialize the FXMLLoader and set the controller
         loader = new FXMLLoader(getClass().getResource(fxmlFile));
         loader.setController(controller);
 

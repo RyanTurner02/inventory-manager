@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class ModifyItemControllerTest {
     @Test
     public void item_name_can_be_edited() {
+        // create item fields
         String name = "Name";
         String newName = "Another Name";
         String serialNumber = "HelloWorld";
@@ -27,9 +28,11 @@ class ModifyItemControllerTest {
         ObservableList<Item> expectedItemList = FXCollections.observableArrayList();
         expectedItemList.add(new Item(newName, serialNumber, new BigDecimal(monetaryValue)));
 
+        // change the item's name
         Item item = new Item(newName, serialNumber, new BigDecimal(monetaryValue));
         actualItemList.set(0, item);
 
+        // check that the actual item's values matches the expected item's values
         boolean flag = true;
 
         int size = actualItemList.size();
@@ -54,6 +57,7 @@ class ModifyItemControllerTest {
 
     @Test
     public void item_serial_number_can_be_edited() {
+        // create item fields
         String name = "Name";
         String serialNumber = "HelloWorld";
         String newSerialNumber = "Another Name";
@@ -65,9 +69,11 @@ class ModifyItemControllerTest {
         ObservableList<Item> expectedItemList = FXCollections.observableArrayList();
         expectedItemList.add(new Item(name, newSerialNumber, new BigDecimal(monetaryValue)));
 
+        // change the item's serial number
         Item item = new Item(name, newSerialNumber, new BigDecimal(monetaryValue));
         actualItemList.set(0, item);
 
+        // check that the actual item's values matches the expected item's values
         boolean flag = true;
 
         int size = actualItemList.size();
@@ -92,19 +98,23 @@ class ModifyItemControllerTest {
 
     @Test
     public void item_duplicate_serial_number_found() {
+        // create an item list and store 3 items where two have matching serial numbers
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         itemList.add(new Item("Name", "helloworld", new BigDecimal(10)));
         itemList.add(new Item("Item Name", "absfJ2ivkn", new BigDecimal(10)));
         itemList.add(new Item("Another Name", "HelloWorld", new BigDecimal(10)));
 
+        // create a flag variable and check if there is a duplicate serial number
         ModifyItemController modifyItemController = new ModifyItemController(itemList, itemList.get(0), null);
         boolean flag = modifyItemController.hasDuplicateSerialNumber(itemList.get(0).getSerialNumber());
 
+        // assert true that a duplicate serial number has been found
         assertTrue(flag);
     }
 
     @Test
     public void item_value_can_be_edited() {
+        // create item fields
         String name = "Name";
         String serialNumber = "HelloWorld";
         String monetaryValue = "0";
@@ -116,9 +126,11 @@ class ModifyItemControllerTest {
         ObservableList<Item> expectedItemList = FXCollections.observableArrayList();
         expectedItemList.add(new Item(name, serialNumber, new BigDecimal(newMonetaryValue)));
 
+        // change the item's monetary value
         Item item = new Item(name, serialNumber, new BigDecimal(newMonetaryValue));
         actualItemList.set(0, item);
 
+        // check that the actual item's values matches the expected item's values
         boolean flag = true;
 
         int size = actualItemList.size();

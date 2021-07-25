@@ -43,6 +43,7 @@ public class AddItemController {
 
     @FXML
     public void addItemButtonPressed(ActionEvent event) {
+        // store the values from the text fields
         String name = this.nameTextField.getText();
         String serialNumber = this.serialNumberTextField.getText();
         String valueString = this.valueTextField.getText();
@@ -127,6 +128,7 @@ public class AddItemController {
     @FXML
     public void nameTextFieldPressed(KeyEvent keyEvent) {
         this.nameTextField.setTextFormatter(new TextFormatter<>(c -> {
+            // prevent the user from entering more than 256 characters
             if (lessThanMaxNameLength(c.getControlNewText())) {
                 return c;
             } else {
@@ -142,6 +144,8 @@ public class AddItemController {
     @FXML
     public void serialNumberTextFieldPressed(KeyEvent keyEvent) {
         this.serialNumberTextField.setTextFormatter(new TextFormatter<>(c -> {
+            // prevent the user from entering more than 10 characters
+            // allow the user to enter only alphanumeric characters
             if (lessThanMaxSerialNumberLength(c.getControlNewText()) && hasAlphaNumericCharacters(c.getControlNewText())) {
                 return c;
             } else {
@@ -161,6 +165,8 @@ public class AddItemController {
     @FXML
     public void valueTextFieldPressed(KeyEvent keyEvent) {
         this.valueTextField.setTextFormatter(new TextFormatter<>(c -> {
+            // allow the user to enter a monetary value in a USD format
+            // prevent the user from entering a '.' as the only character in the text field
             if (hasUSDFormat(c.getControlNewText()) && !c.getControlNewText().equals(".")) {
                 return c;
             } else {
