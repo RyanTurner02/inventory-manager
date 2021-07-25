@@ -301,18 +301,18 @@ public class FileHandler {
 
     public String getHTMLTable(ObservableList<Item> itemList) {
         String htmlTable = "\t\t<table align=\"center\" border=\"1\">\n" +
-                "\t\t<tr>\n" +
-                "\t\t\t<th>Name</th>\n" +
-                "\t\t\t<th>Serial Number</th>\n" +
-                "\t\t\t<th>Value</th>\n" +
-                "\t\t</tr>\n";
+                "\t\t\t<tr>\n" +
+                "\t\t\t\t<th>Name</th>\n" +
+                "\t\t\t\t<th>Serial Number</th>\n" +
+                "\t\t\t\t<th>Value</th>\n" +
+                "\t\t\t</tr>\n";
 
         for (Item item : itemList) {
-            htmlTable += "\t\t<tr>\n";
-            htmlTable += "\t\t\t<td>" + item.getName() + "</td>\n";
-            htmlTable += "\t\t\t<td>" + item.getSerialNumber() + "</td>\n";
-            htmlTable += "\t\t\t<td> $" + item.getMonetaryValue() + "</td>\n";
-            htmlTable += "\t\t</tr>\n";
+            htmlTable += "\t\t\t<tr>\n";
+            htmlTable += "\t\t\t\t<td>" + item.getName() + "</td>\n";
+            htmlTable += "\t\t\t\t<td>" + item.getSerialNumber() + "</td>\n";
+            htmlTable += "\t\t\t\t<td> $" + item.getMonetaryValue() + "</td>\n";
+            htmlTable += "\t\t\t</tr>\n";
         }
 
         htmlTable += "\t\t</table>";
