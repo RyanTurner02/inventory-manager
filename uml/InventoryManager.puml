@@ -1,0 +1,146 @@
+@startuml
+
+class InventoryManagerApp {
+    + main(args)
+    + start(primaryStage)
+}
+
+class SceneManager {
+    - sceneMap: Map<String, Scene>
+
+    + SceneManager()
+    + load()
+    + addScene(controller, fxmlFile, sceneName)
+    + getScene(sceneName)
+    + getModifyItemScene(itemList, itemToModify)
+}
+
+class InventoryManagerController {
+    - itemList: ObservableList<Item>
+    - sceneManager: SceneManager
+
+    - importMenuItem: MenuItem
+    - exportMenuItem: MenuItem
+    - itemTable: TableView<Item>
+    - nameColumn: TableColumn<Item, String>
+    - serialNumberColumn: TableColumn<Item, String>
+    - valueColumn: TableColumn<Item, String>
+    - addItemButton: Button
+    - modifyItemButton: Button
+    - deleteItemButton: Button
+    - searchTextField: TextField
+
+    + InventoryManagerController(itemList, sceneManager)
+    + initialize(location, resources)
+    + importMenuItemPressed(event)
+    + exportMenuItemPressed(event)
+    + addItemButtonPressed(event)
+    + modifyItemButtonPressed(event)
+    + deleteItemButtonPressed(event)
+    + searchTextFieldTyped(event)
+}
+
+class AddItemController {
+    - itemList: ObservableList<Item>
+    - sceneManager: SceneManager
+
+    - addItemButton: Button
+    - cancelButton: Button
+    - nameTextField: TextField
+    - serialNumberTextField: TextField
+    - valueTextField: TextField
+
+    + AddItemController(itemList, sceneManager)
+    + addItemButtonPressed(event)
+    + hasInvalidNameLength(name)
+    + hasInvalidSerialNumberLength(serialNumber)
+    + hasDuplicateSerialNumber(serialNumber)
+    - displayErrorWindow()
+    - closeWindow()
+    + cancelButtonPressed(event)
+    - clearTextFields()
+    + nameTextFieldPressed(keyEvent)
+    - lessThanMaxNameLength(name)
+    + serialNumberTextFieldPressed(keyEvent)
+    - lessThanMaxSerialNumberLength(serialNumber)
+    + hasAlphaNumericCharacters(serialNumber)
+    + valueTextFieldPressed(keyEvent)
+    + hasNumbersAndTwoDecimals(monetaryValue)
+}
+
+class ModifyItemController {
+    - itemList: ObservableList<Item>
+    - oldItem: Item
+    - sceneManager: SceneManager
+
+    - modifyItemButton: Button
+    - cancelButton: Button
+    - nameTextField: TextField
+    - serialNumberTextField: TextField
+    - valueTextField: TextField
+
+    + ModifyItemController(itemList, oldItem, sceneManager)
+    + initialize(location, resources)
+    + modifyItemButtonPressed(event)
+    + twoItemsMatch(item1, item2)
+    + getOldItemIndex()
+    + hasInvalidNameLength(name)
+    + hasInvalidSerialNumberLength(serialNumber)
+    + hasDuplicateSerialNumber(serialNumber)
+    - displayErrorWindow()
+    - closeWindow()
+    + cancelButtonPressed(event)
+    + nameTextFieldPressed(keyEvent)
+    - lessThanMaxNameLength(name)
+    + serialNumberTextFieldPressed(keyEvent)
+    - lessThanMaxSerialNumberLength(serialNumber)
+    + hasAlphaNumericCharacters(serialNumber)
+    + valueTextFieldPressed(keyEvent)
+    + hasNumbersAndTwoDecimals(monetaryValue)
+}
+
+class FileHandler {
+    + importItemsFromFile(tableView)
+    + getItemsFromJSONFile(file)
+    + getItemsFromTSVTextFile(file)
+    + getItemsFromHTMLFile(file)
+    + exportItemsToFile(tableView, itemList)
+    + getJSONString(itemList)
+    + getTSVString(itemList)
+    + getHTMLString(itemList)
+    + getHTMLTable(itemList)
+}
+
+class Item {
+    - name: String
+    - serialNumber: String
+    - monetaryValue: BigDecimal
+
+    + Item()
+    + Item(name, serialNumber, monetaryValue)
+    + getName()
+    + setName(name)
+    + getSerialNumber()
+    + setSerialNumber(serialNumber)
+    + getMonetaryValue()
+    + setMonetaryValue(monetaryValue)
+    + toString()
+}
+
+javafx.Application <|-- InventoryManagerApp
+
+InventoryManagerApp -- InventoryManagerController
+AddItemController - InventoryManagerController
+InventoryManagerController - ModifyItemController
+FileHandler -- InventoryManagerController
+
+SceneManager -- InventoryManagerController
+SceneManager -- AddItemController
+ModifyItemController -- SceneManager
+
+Item -- InventoryManagerController
+Item -- AddItemController
+Item -- ModifyItemController
+Item - FileHandler
+
+@enduml

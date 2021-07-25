@@ -91,7 +91,7 @@ public class InventoryManagerController implements Initializable {
         FileHandler fileHandler = new FileHandler();
 
         // export all the contents from the list to a file
-        fileHandler.exportItemListToFile(this.itemTable, itemList);
+        fileHandler.exportItemsToFile(this.itemTable, itemList);
     }
 
     @FXML

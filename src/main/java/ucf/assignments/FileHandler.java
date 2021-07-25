@@ -62,7 +62,7 @@ public class FileHandler {
             // else if the file extension is .txt
             else if (filePath.endsWith(".txt")) {
                 // get the items from the tsv file and store it to the item list
-                itemList = getItemsFromTSVFile(file);
+                itemList = getItemsFromTSVTextFile(file);
             }
 
             // else if the file extension is .html
@@ -112,7 +112,7 @@ public class FileHandler {
         return itemList;
     }
 
-    public ObservableList<Item> getItemsFromTSVFile(File file) {
+    public ObservableList<Item> getItemsFromTSVTextFile(File file) {
         // create an item list that will store the items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
@@ -148,7 +148,7 @@ public class FileHandler {
         return itemList;
     }
 
-    public void exportItemListToFile(TableView<Item> tableView, ObservableList<Item> itemList) {
+    public void exportItemsToFile(TableView<Item> tableView, ObservableList<Item> itemList) {
         // create a window stage
         Window stage = tableView.getScene().getWindow();
 
