@@ -27,11 +27,9 @@ public class SceneManager {
 
         InventoryManagerController inventoryManagerController = new InventoryManagerController(itemList, this);
         AddItemController addItemController = new AddItemController(itemList, this);
-        ModifyItemController modifyItemController = new ModifyItemController(itemList, this);
 
         addScene(inventoryManagerController, "InventoryManager.fxml", "InventoryManager");
         addScene(addItemController, "AddItem.fxml", "AddItem");
-        addScene(modifyItemController, "ModifyItem.fxml", "ModifyItem");
         addScene(null, "Error.fxml", "Error");
     }
 
@@ -52,5 +50,11 @@ public class SceneManager {
 
     public Scene getScene(String sceneName) {
         return this.sceneMap.get(sceneName);
+    }
+
+    public Scene getModifyItemScene(ObservableList<Item> itemList, Item itemToModify) {
+        ModifyItemController modifyItemController = new ModifyItemController(itemList, itemToModify, this);
+        addScene(modifyItemController, "ModifyItem.fxml", "ModifyItem");
+        return getScene("ModifyItem");
     }
 }

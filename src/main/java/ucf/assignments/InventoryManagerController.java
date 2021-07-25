@@ -96,6 +96,7 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void addItemButtonPressed(ActionEvent event) {
+        // open the item creator window
         Stage stage = new Stage();
         stage.setTitle("Item Creator");
         stage.setResizable(false);
@@ -105,12 +106,16 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void modifyItemButtonPressed(ActionEvent event) {
+        // get the item to modify
+        Item itemToModify = this.itemTable.getSelectionModel().selectedItemProperty().get();
+
         // check if the user selected an object
-        if (this.itemTable.getSelectionModel().selectedItemProperty().get() != null) {
+        if (itemToModify != null) {
+            // open the item modifier window
             Stage stage = new Stage();
             stage.setTitle("Item Modifier");
             stage.setResizable(false);
-            stage.setScene(this.sceneManager.getScene("ModifyItem"));
+            stage.setScene(this.sceneManager.getModifyItemScene(this.itemList, itemToModify));
             stage.show();
         }
     }

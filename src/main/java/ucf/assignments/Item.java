@@ -65,4 +65,14 @@ public class Item {
         // set the value instance variable to the value variable
         this.monetaryValue = monetaryValue;
     }
+
+    @Override
+    public String toString() {
+        // print the item's fields
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", serialNumber='" + serialNumber + '\'' +
+                ", monetaryValue=" + monetaryValue +
+                '}';
+    }
 }
