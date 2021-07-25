@@ -5,14 +5,25 @@
 
 package ucf.assignments;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryManagerControllerTest {
     @Test
     public void item_can_be_removed() {
+        ObservableList<Item> itemList = FXCollections.observableArrayList();
+        itemList.add(new Item("Name", "XXXXXXXXXX", new BigDecimal(0)));
+        itemList.remove(0);
 
+        int actual = itemList.size();
+        int expected = 0;
+
+        assertEquals(expected, actual);
     }
 
     @Test
