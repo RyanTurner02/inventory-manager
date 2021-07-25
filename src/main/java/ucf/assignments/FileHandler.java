@@ -163,32 +163,33 @@ public class FileHandler {
             // parse the html into a document
             Document document = Jsoup.parse(fileString);
 
-            // store the table
+            // store the tables
             Elements tables = document.select("table");
 
-            // store the table rows
-            Elements tableRows = tables.get(0).select("tr");
+            // iterate through the tables
+            for (Element table : tables) {
+                // iterate through the table rows
+                for (Element tableRow : table.select("tr")) {
+                    // check if the size of the table data is equal to 3
+                    if (tableRow.select("td").size() == 3) {
+                        // store the name
+                        String name = tableRow.select("td").get(0).text();
 
-            // iterate through the table rows
-            for (Element tableRow : tableRows) {
-                if (tableRow.select("td").size() == 3) {
-                    // store the name
-                    String name = tableRow.select("td").get(0).text();
+                        // store the serial number
+                        String serialNumber = tableRow.select("td").get(1).text();
 
-                    // store the serial number
-                    String serialNumber = tableRow.select("td").get(1).text();
+                        // store the monetary value as a string
+                        String monetaryValueString = tableRow.select("td").get(2).text();
 
-                    // store the monetary value as a string
-                    String monetaryValueString = tableRow.select("td").get(2).text();
+                        // remove the '$' from the string
+                        monetaryValueString = monetaryValueString.replace("$", "");
 
-                    // remove the '$' from the string
-                    monetaryValueString = monetaryValueString.replace("$", "");
+                        // store the monetary value as a big decimal with 2 decimals
+                        BigDecimal monetaryValue = new BigDecimal(monetaryValueString).setScale(2, RoundingMode.DOWN);
 
-                    // store the monetary value as a big decimal with 2 decimals
-                    BigDecimal monetaryValue = new BigDecimal(monetaryValueString).setScale(2, RoundingMode.DOWN);
-
-                    // add the name, serial number, and monetary value to the item list
-                    itemList.add(new Item(name, serialNumber, monetaryValue));
+                        // add the name, serial number, and monetary value to the item list
+                        itemList.add(new Item(name, serialNumber, monetaryValue));
+                    }
                 }
             }
         } catch (FileNotFoundException e) {
