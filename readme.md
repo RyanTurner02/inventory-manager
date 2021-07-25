@@ -1,102 +1,60 @@
-# To-do List Application
+# Inventory Manager Application
 
 ## Files:
 
 ### Import:
 
-* Press the "Import" option to load a list of tasks in the correct JSON format.
+* Press the "Import" option to load a list of items from a JSON file, TSV text file, or an HTML file.
+    * **Note:** All imported files must be in their correct formats.
 
 ### Export:
 
-* Press the "Export" option to save a list of tasks in a JSON file.
-
-**Note:** All imported and exported JSON files will be in one of the following formats:
-
-No Tasks:
-
-    []
-
-One Task:
-
-    [
-      {
-        "description": "Description Here",
-        "dueDate": "2021-12-31",
-        "isFinished": true,
-      }
-    ]
-
-Two or More Tasks:
-
-    [
-      {
-        "description": "Description Here",
-        "dueDate": "2021-12-31",
-        "isFinished": true
-      },
-      {
-        "description": "Description Here",
-        "dueDate": "2021-12-31",
-        "isFinished": false
-      }
-    ]
+* Press the "Export" option to save a list of items into a JSON file, TSV text file, or an HTML file.
 
 ***
 
 ## Viewing:
 
-### Display All:
+### Sort by Name:
 
-* Press the "Display All" option to display all the tasks.
+* Press on the "Name" header on the table to sort the items by their name.
 
-### Display Incomplete:
+### Sort by Serial number:
 
-* Press the "Display Incomplete" option to display all the incomplete tasks
+* Press on the "Serial Number" header on the table to sort the items by their serial number.
 
-### Display Completed:
+### Sort by Monetary Value:
 
-* Press the "Display Completed" option to display all the completed tasks.
+* Press on the "Value" header on the table to sort the items by their monetary value.
 
-### Reset:
-
-* Press the "Reset" option to display all the tasks.
-
-### Sort by Due Date:
-
-* Press on the "Due Date" header on the table to sort the tasks by their due date.
-
-***  
+***
 
 ## Items:
 
 ### Adding an item:
 
 * In the item menu, press on the "Add Item" button.
-* Fill in a description between 1-256 characters.
-* Choose a date.
-* Choose either "Yes" or "No" for marking the item as either complete or incomplete.
-* Press either the "Add" button to create the item or "Cancel" button to not create the item.
+* Enter a name that is between 2-256 characters.
+* Enter a unique 10 character serial number that follows the format "XXXXXXXXXX" where 'X' can either be a letter or
+  number.
+    * **Note:** Serial Numbers are case-sensitive.
+* Enter a monetary value that follows the following format "X.XX" where 'X' is a number.
+* Press either the "Add Item" button to create the item or "Cancel" button to not create the item.
 
 ### Modifying an item:
 
 * Select an already existing item in the item menu.
 * Press the "Modify Item" button.
 * You will have the option to modify all the values.
-    * **Note:** The description still requires 1-256 characters.
-* Press either the "Modify" button to modify the item or "Cancel" button to not modify the item.
+    * **Note:** All requirements from the add item section still apply.
+* Press either the "Modify Item" button to modify the item or "Cancel" button to not modify the item.
 
 ### Deleting items:
 
 * Deleting a Single Item:
     * In the item menu, select an already existing item.
     * Press the "Delete Item" button to delete the item.
-* Deleting All Items:
-    * In the item menu, press the "Delete All Items" button to delete all the tasks.
+  
+### Searching:
 
-***
-
-## Dedication to Rey:
-
-This section is in honor of our Son, our Lord, Rey.
-
-![picture](images/ReyDedication.jpg)
+* In the item menu, you can type in the text field to search for an item's name or serial number.
