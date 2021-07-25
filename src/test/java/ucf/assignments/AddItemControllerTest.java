@@ -38,7 +38,7 @@ class AddItemControllerTest {
         AddItemController addItemController = new AddItemController(itemList, null);
 
         String monetaryValue = itemList.get(0).getMonetaryValue().toString();
-        boolean flag = addItemController.hasNumbersAndTwoDecimals(monetaryValue);
+        boolean flag = addItemController.hasUSDFormat(monetaryValue);
 
         assertTrue(flag);
     }
@@ -52,7 +52,7 @@ class AddItemControllerTest {
         AddItemController addItemController = new AddItemController(itemList, null);
 
         String monetaryValue = itemList.get(0).getMonetaryValue().toString();
-        boolean flag = addItemController.hasNumbersAndTwoDecimals(monetaryValue);
+        boolean flag = addItemController.hasUSDFormat(monetaryValue);
 
         assertTrue(flag);
     }
@@ -66,7 +66,7 @@ class AddItemControllerTest {
         AddItemController addItemController = new AddItemController(itemList, null);
 
         String monetaryValue = itemList.get(0).getMonetaryValue().toString();
-        boolean flag = addItemController.hasNumbersAndTwoDecimals(monetaryValue);
+        boolean flag = addItemController.hasUSDFormat(monetaryValue);
 
         assertFalse(flag);
     }
@@ -80,7 +80,7 @@ class AddItemControllerTest {
         AddItemController addItemController = new AddItemController(itemList, null);
 
         String monetaryValue = itemList.get(0).getMonetaryValue().toString();
-        boolean flag = addItemController.hasNumbersAndTwoDecimals(monetaryValue);
+        boolean flag = addItemController.hasUSDFormat(monetaryValue);
 
         assertFalse(flag);
     }
@@ -205,6 +205,7 @@ class AddItemControllerTest {
 
     @Test
     public void item_name_length_is_between_2_to_256_characters_1() {
+        // create an item where the name is 2 characters
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         Item item = new Item("AA", "XXXXXXXXXX", new BigDecimal(10));
         itemList.add(item);
@@ -219,6 +220,7 @@ class AddItemControllerTest {
 
     @Test
     public void item_name_length_is_between_2_to_256_characters_2() {
+        // create an item where the name is 256 characters
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         Item item = new Item("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "XXXXXXXXXX", new BigDecimal(10));
         itemList.add(item);
@@ -233,6 +235,7 @@ class AddItemControllerTest {
 
     @Test
     public void item_name_length_is_not_between_2_to_256_characters_1() {
+        // create an item where the name is 1 character
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         Item item = new Item("A", "XXXXXXXXXX", new BigDecimal(10));
         itemList.add(item);
@@ -247,6 +250,7 @@ class AddItemControllerTest {
 
     @Test
     public void item_name_length_is_not_between_2_to_256_characters_2() {
+        // create an item where the name is 257 characters
         ObservableList<Item> itemList = FXCollections.observableArrayList();
         Item item = new Item("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "XXXXXXXXXX", new BigDecimal(10));
         itemList.add(item);

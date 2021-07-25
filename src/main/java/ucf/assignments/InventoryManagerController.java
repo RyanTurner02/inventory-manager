@@ -62,9 +62,11 @@ public class InventoryManagerController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // initialize the name column
         this.nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
         // initialize the serial number column
         this.serialNumberColumn.setCellValueFactory(new PropertyValueFactory<>("serialNumber"));
-        // initialize the value column
+
+        // initialize the monetary value column and add a '$' in front of the monetary value
         this.valueColumn.setCellValueFactory(c -> new SimpleStringProperty("$" + c.getValue().getMonetaryValue()));
 
         // allow the table columns to be automatically resized
@@ -78,19 +80,15 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void importMenuItemPressed(ActionEvent event) {
-        // create a file handler object
-        FileHandler fileHandler = new FileHandler();
-
         // add all the contents from the file to the item list
+        FileHandler fileHandler = new FileHandler();
         itemList.addAll(fileHandler.importItemsFromFile(this.itemTable));
     }
 
     @FXML
     public void exportMenuItemPressed(ActionEvent event) {
-        // create a file handler object
-        FileHandler fileHandler = new FileHandler();
-
         // export all the contents from the list to a file
+        FileHandler fileHandler = new FileHandler();
         fileHandler.exportItemsToFile(this.itemTable, itemList);
     }
 

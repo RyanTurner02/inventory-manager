@@ -21,54 +21,41 @@ public class Item {
     private BigDecimal monetaryValue;
 
     public Item() {
-        // initialize the instance variables strings to blank and 0 for the big decimal value
         this("", "", BigDecimal.ZERO);
     }
 
     public Item(String name, String serialNumber, BigDecimal monetaryValue) {
-        // initialize the description instance variable to the description variable
         this.name = name;
-
-        // initialize the dueDate instance variable to the dueDate variable
         this.serialNumber = serialNumber;
-
-        // initialize the value instance variable to the value variable
         this.monetaryValue = monetaryValue;
     }
 
     public String getName() {
-        // return the description
         return name;
     }
 
     public void setName(String name) {
-        // set the description instance variable to the description variable
         this.name = name;
     }
 
     public String getSerialNumber() {
-        // return the dueDate
         return serialNumber;
     }
 
     public void setSerialNumber(String serialNumber) {
-        // set the dueDate instance variable to the dueDate variable
         this.serialNumber = serialNumber;
     }
 
     public BigDecimal getMonetaryValue() {
-        // return the item's value
         return monetaryValue;
     }
 
     public void setMonetaryValue(BigDecimal monetaryValue) {
-        // set the value instance variable to the value variable
         this.monetaryValue = monetaryValue;
     }
 
     @Override
     public String toString() {
-        // print the item's fields
         return "Item{" +
                 "name='" + name + '\'' +
                 ", serialNumber='" + serialNumber + '\'' +

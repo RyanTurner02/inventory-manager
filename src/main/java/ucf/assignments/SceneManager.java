@@ -37,9 +37,11 @@ public class SceneManager {
         Parent root;
         FXMLLoader loader;
 
+        // load the scene and set the controller
         loader = new FXMLLoader(getClass().getResource(fxmlFile));
         loader.setController(controller);
 
+        // store the scene into the scene map
         try {
             root = loader.load();
             this.sceneMap.put(sceneName, new Scene(root));
@@ -53,8 +55,11 @@ public class SceneManager {
     }
 
     public Scene getModifyItemScene(ObservableList<Item> itemList, Item itemToModify) {
+        // create a new modify item controller instance and add it to the scene map
         ModifyItemController modifyItemController = new ModifyItemController(itemList, itemToModify, this);
         addScene(modifyItemController, "ModifyItem.fxml", "ModifyItem");
+
+        // return the modify item scene
         return getScene("ModifyItem");
     }
 }

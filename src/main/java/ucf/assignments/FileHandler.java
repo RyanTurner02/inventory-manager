@@ -24,64 +24,48 @@ import java.util.Scanner;
 public class FileHandler {
 
     public ObservableList<Item> importItemsFromFile(TableView<Item> tableView) {
-        // create a list of items that will be returned
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
-        // create a window stage
         Window stage = tableView.getScene().getWindow();
 
-        // create a file chooser object
+        // create a file chooser object and initialize the title window and extensions
         FileChooser fileChooser = new FileChooser();
-
-        // set the title to "Load Items"
         fileChooser.setTitle("Load Items");
-
-        // allow for .json, .txt, and .html files to be opened
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON File", "*.json"),
                 new FileChooser.ExtensionFilter("Text File", "*.txt"),
                 new FileChooser.ExtensionFilter("HTML File", "*.html"));
 
         try {
-            // show the load dialog and save it to the file object
             File file = fileChooser.showOpenDialog(stage);
 
-            // check if the user did not open a file
+            // exit the method if the user did not open a file
             if (file == null) {
-                // exit the method and return the item list
                 return itemList;
             }
 
-            // get the file path
             String filePath = file.getCanonicalPath();
 
-            // if the file extension is .json
+            // get the items from a json file and store it to the item list
             if (filePath.endsWith(".json")) {
-                // get the items from the json file and store it to the item list
                 itemList = getItemsFromJSONFile(file);
             }
 
-            // else if the file extension is .txt
+            // get the items from the tsv txt file and store it to the item list
             else if (filePath.endsWith(".txt")) {
-                // get the items from the tsv file and store it to the item list
                 itemList = getItemsFromTSVTextFile(file);
             }
 
-            // else if the file extension is .html
+            // get the items from the html file and store it to the item list
             else if (filePath.endsWith(".html")) {
-                // get the items from the html file and store it to the item list
                 itemList = getItemsFromHTMLFile(file);
             }
         } catch (Exception e) {
-            // print the stack trace when we have an exception
             e.printStackTrace();
         }
-
-        // return the item list
         return itemList;
     }
 
     public ObservableList<Item> getItemsFromJSONFile(File file) {
-        // create a item list that will store the items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         try {
@@ -93,69 +77,53 @@ public class FileHandler {
 
             // iterate through the objects in the json file
             for (JsonElement jsonElement : jsonArray) {
-                // get the item's name from the json array
+                // get the item fields from the json array
                 String description = jsonElement.getAsJsonObject().get("name").getAsString();
-
-                // get the item's serial number from the json array
                 String dueDate = jsonElement.getAsJsonObject().get("serialNumber").getAsString();
-
-                // get the item's monetary value from the json array
                 BigDecimal value = jsonElement.getAsJsonObject().get("monetaryValue").getAsBigDecimal();
 
                 // create a new item object and add it to the item list
                 itemList.add(new Item(description, dueDate, value));
             }
         } catch (FileNotFoundException e) {
-            // print the stack trace
             e.printStackTrace();
         }
-        // return the item list
         return itemList;
     }
 
     public ObservableList<Item> getItemsFromTSVTextFile(File file) {
-        // create an item list that will store the items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         try {
-            // create a scanner object
             Scanner reader = new Scanner(file);
 
-            // check if the first line is the header
+            // skip the first line of the file if it is the header
             if (reader.nextLine().contains("Name\tSerial Number\tValue".toLowerCase())) {
-                // skip to the next line
                 reader.nextLine();
             }
 
             // iterate through the file
             while (reader.hasNextLine()) {
-                // store the current item values in an array
+                // store the current item values in an array and add the current item values to the item list
                 String[] currentItemValues = reader.nextLine().split("\t");
-
-                // add the current item values to the item list
                 itemList.add(new Item(currentItemValues[0], currentItemValues[1], new BigDecimal(currentItemValues[2].replace("$", "")).setScale(2, RoundingMode.DOWN)));
             }
         } catch (FileNotFoundException e) {
-            // print the stack trace
             e.printStackTrace();
         }
-
-        // return the item list
         return itemList;
     }
 
     public ObservableList<Item> getItemsFromHTMLFile(File file) {
-        // create an item list that will store the items
         ObservableList<Item> itemList = FXCollections.observableArrayList();
 
         try {
-            // create a scanner object
             Scanner reader = new Scanner(file);
 
             // create a string that stores the file text
             String fileString = "";
 
-            // iterate through the file
+            // iterate through the file and add it to the string
             while (reader.hasNextLine()) {
                 fileString += String.format("%s\n", reader.nextLine());
             }
@@ -168,20 +136,15 @@ public class FileHandler {
 
             // iterate through the tables
             for (Element table : tables) {
-                // iterate through the table rows
                 for (Element tableRow : table.select("tr")) {
                     // check if the size of the table data is equal to 3
                     if (tableRow.select("td").size() == 3) {
-                        // store the name
+                        // get the fields from the html table
                         String name = tableRow.select("td").get(0).text();
-
-                        // store the serial number
                         String serialNumber = tableRow.select("td").get(1).text();
-
-                        // store the monetary value as a string
                         String monetaryValueString = tableRow.select("td").get(2).text();
 
-                        // remove the '$' from the string
+                        // remove the '$' from the monetary value
                         monetaryValueString = monetaryValueString.replace("$", "");
 
                         // store the monetary value as a big decimal with 2 decimals
@@ -193,78 +156,52 @@ public class FileHandler {
                 }
             }
         } catch (FileNotFoundException e) {
-            // print the stack trace
             e.printStackTrace();
         }
-        // return the item list
         return itemList;
     }
 
     public void exportItemsToFile(TableView<Item> tableView, ObservableList<Item> itemList) {
-        // create a window stage
         Window stage = tableView.getScene().getWindow();
 
-        // create a file chooser object
+        // create a file chooser object and initialize the title window, file name, and extensions
         FileChooser fileChooser = new FileChooser();
-
-        // set the title to "Save Items"
         fileChooser.setTitle("Save Items");
-
-        // set the initial file name to "Items"
         fileChooser.setInitialFileName("Items");
-
-        // allow for .json, .txt, and .html files to be saved
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("JSON File", "*.json"),
                 new FileChooser.ExtensionFilter("Text File", "*.txt"),
                 new FileChooser.ExtensionFilter("HTML File", "*.html"));
 
         try {
-            // show the save dialog and save it to the file object
             File file = fileChooser.showSaveDialog(stage);
 
-            // check if the user did not save the file
+            // exit the method if the user did not save a file
             if (file == null) {
-                // exit the method
                 return;
             }
 
-            // create a file writer with the file location
             FileWriter fileWriter = new FileWriter(file);
-
-            // get the file path
             String filePath = file.getCanonicalPath();
 
-            // if the file extension is .json
+            // get the items and write it into a json file
             if (filePath.endsWith(".json")) {
-                // get the items and convert it into a json string
                 String jsonString = getJSONString(itemList);
-
-                // write the json string into a file
                 fileWriter.write(jsonString);
             }
 
-            // else if the file extension is .txt
+            // get the items and write it into a tsv txt file
             else if (filePath.endsWith(".txt")) {
-                // get the items and convert it into a tsv string
                 String tsvString = getTSVString(itemList);
-
-                // write the tsv string into a file
                 fileWriter.write(tsvString);
             }
 
-            // else if the file extension is .html
+            // get the items and write it into an html file
             else if (filePath.endsWith(".html")) {
-                // get the items and convert it into an html string
                 String htmlString = getHTMLString(itemList);
-
-                // write the html string into a file
                 fileWriter.write(htmlString);
             }
-
-            // close the file writer
             fileWriter.close();
         } catch (Exception e) {
-            // print the stack trace when we have an exception
             e.printStackTrace();
         }
     }
@@ -278,16 +215,18 @@ public class FileHandler {
     }
 
     public String getTSVString(ObservableList<Item> itemList) {
+        // create a header
         String tsvString = "Name\tSerial Number\tValue\n";
 
+        // add the items
         for (Item item : itemList) {
             tsvString += (item.getName() + "\t" + item.getSerialNumber() + "\t$" + item.getMonetaryValue() + "\n");
         }
-
         return tsvString;
     }
 
     public String getHTMLString(ObservableList<Item> itemList) {
+        // return the html skeleton with a table
         return "<!DOCTYPE html>\n" +
                 "<html>\n" +
                 "\t<head>\n" +
@@ -300,6 +239,7 @@ public class FileHandler {
     }
 
     public String getHTMLTable(ObservableList<Item> itemList) {
+        // create the html table with the first row being the header
         String htmlTable = "\t\t<table align=\"center\" border=\"1\">\n" +
                 "\t\t\t<tr>\n" +
                 "\t\t\t\t<th>Name</th>\n" +
@@ -307,6 +247,7 @@ public class FileHandler {
                 "\t\t\t\t<th>Value</th>\n" +
                 "\t\t\t</tr>\n";
 
+        // get the items in a table row
         for (Item item : itemList) {
             htmlTable += "\t\t\t<tr>\n";
             htmlTable += "\t\t\t\t<td>" + item.getName() + "</td>\n";
@@ -315,6 +256,7 @@ public class FileHandler {
             htmlTable += "\t\t\t</tr>\n";
         }
 
+        // close the table
         htmlTable += "\t\t</table>";
 
         return htmlTable;
