@@ -61,7 +61,16 @@ public class ModifyItemController implements Initializable {
         // get the inputted serial number
         String serialNumber = this.serialNumberTextField.getText();
 
-        // get the inputted monetary value
+        // get the inputted monetary value as a string
+        String valueString = this.valueTextField.getText();
+
+        // check if the value string is empty
+        if(valueString.isEmpty()) {
+            // exit the function
+            return;
+        }
+
+        // initialize the monetary value
         BigDecimal value = new BigDecimal(this.valueTextField.getText()).setScale(2, RoundingMode.DOWN);
 
         // check if the user did not make any changes

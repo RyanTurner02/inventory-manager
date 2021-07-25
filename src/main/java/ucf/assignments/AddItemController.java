@@ -46,14 +46,26 @@ public class AddItemController {
         // get the inputted name
         String name = this.nameTextField.getText();
 
+        // get the inputted serial number
+        String serialNumber = this.serialNumberTextField.getText();
+
+        // get the inputted monetary value as a string
+        String valueString = this.valueTextField.getText();
+
+        // check if the value string is empty
+        if (valueString.isEmpty()) {
+            // exit the function
+            return;
+        }
+
+        // initialize the monetary value
+        BigDecimal value = new BigDecimal(this.valueTextField.getText()).setScale(2, RoundingMode.DOWN);
+
         // check if the name length is invalid
         if (hasInvalidNameLength(name)) {
             // exit the function
             return;
         }
-
-        // get the inputted serial number
-        String serialNumber = this.serialNumberTextField.getText();
 
         // check if the length of the serial number is invalid
         if (hasInvalidSerialNumberLength(serialNumber)) {
@@ -70,9 +82,6 @@ public class AddItemController {
             return;
         }
 
-        // get the inputted value
-        BigDecimal value = new BigDecimal(this.valueTextField.getText()).setScale(2, RoundingMode.DOWN);
-
         // create an item object
         Item item = new Item(name, serialNumber, value);
 
@@ -82,11 +91,8 @@ public class AddItemController {
         // clear the text fields
         clearTextFields();
 
-        // get the stage
-        Stage stage = (Stage) this.addItemButton.getScene().getWindow();
-
-        // close the stage
-        stage.close();
+        // close the window
+        closeWindow();
     }
 
     public boolean hasInvalidNameLength(String name) {
@@ -119,6 +125,14 @@ public class AddItemController {
         errorStage.setResizable(false);
         errorStage.setScene(this.sceneManager.getScene("Error"));
         errorStage.show();
+    }
+
+    private void closeWindow() {
+        // get the stage
+        Stage stage = (Stage) this.addItemButton.getScene().getWindow();
+
+        // close the stage
+        stage.close();
     }
 
     @FXML
