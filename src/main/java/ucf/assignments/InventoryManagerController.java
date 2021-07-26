@@ -94,6 +94,10 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void addItemButtonPressed(ActionEvent event) {
+        // reset the search bar and display all items
+        this.searchTextField.setText("");
+        this.itemTable.setItems(this.itemList);
+
         // open the item creator window
         Stage stage = new Stage();
         stage.setTitle("Item Creator");
@@ -104,6 +108,10 @@ public class InventoryManagerController implements Initializable {
 
     @FXML
     public void modifyItemButtonPressed(ActionEvent event) {
+        // reset the search bar and display all items
+        this.searchTextField.setText("");
+        this.itemTable.setItems(this.itemList);
+
         // get the item to modify
         Item itemToModify = this.itemTable.getSelectionModel().selectedItemProperty().get();
 

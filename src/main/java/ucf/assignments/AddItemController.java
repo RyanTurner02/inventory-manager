@@ -112,8 +112,7 @@ public class AddItemController {
 
     @FXML
     public void cancelButtonPressed(ActionEvent event) {
-        // clear the text fields and get the stage and close it
-        clearTextFields();
+        // get the stage and close it
         Stage stage = (Stage) this.cancelButton.getScene().getWindow();
         stage.close();
     }
